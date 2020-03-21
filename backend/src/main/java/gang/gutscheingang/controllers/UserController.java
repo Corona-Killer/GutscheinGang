@@ -1,5 +1,6 @@
 package gang.gutscheingang.controllers;
 
+import gang.gutscheingang.models.Company;
 import gang.gutscheingang.models.User;
 import gang.gutscheingang.repositories.SectorRepository;
 import gang.gutscheingang.repositories.UserRepository;
@@ -30,9 +31,9 @@ public class UserController {
         return userRepository.save(user);
     }
 
-    @GetMapping(produces = "application/json")
-    public List<User> getUsers() {
-        return userRepository.findAll();
+    @GetMapping(value = "/{uuid}/companies", produces = "application/json")
+    public List<Company> getCompaniesOfUser(@PathVariable UUID uuid) {
+        return userRepository.findByUuid(uuid).getCompanyList();
     }
 
     @GetMapping(value = "/{uuid}", produces = "application/json")

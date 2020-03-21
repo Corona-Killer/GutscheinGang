@@ -1,6 +1,7 @@
 package gang.gutscheingang.controllers;
 
 import gang.gutscheingang.models.Company;
+import gang.gutscheingang.models.Voucher;
 import gang.gutscheingang.repositories.CompanyRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,11 @@ public class CompanyController {
     }
 
     @GetMapping(value = "/{uuid}", produces = "application/json")
+    public List<Voucher> getVouchersOfCompany(@PathVariable UUID uuid) {
+        return companyRepository.findByUuid(uuid).getVoucherList();
+    }
+
+    @GetMapping(value = "/{uuid}", produces = "application/json")
     public Company getCompanyById(@PathVariable UUID uuid) {
         return companyRepository.findByUuid(uuid);
     }
@@ -61,7 +67,6 @@ public class CompanyController {
     public void deleteCompany(@PathVariable UUID uuid) {
         try {
             companyRepository.deleteById(uuid);
-
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
