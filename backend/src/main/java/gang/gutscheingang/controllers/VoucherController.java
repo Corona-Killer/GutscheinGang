@@ -2,6 +2,7 @@ package gang.gutscheingang.controllers;
 
 import gang.gutscheingang.models.Voucher;
 import gang.gutscheingang.repositories.VoucherRepository;
+import gang.gutscheingang.validators.UserValidator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class VoucherController {
 
     @GetMapping(value = "/{uuid}", produces = "application/json")
     public Voucher getVoucherById(@PathVariable UUID uuid) {
-        return voucherRepository.findByUuid(uuid);
+        return voucherRepository.findById(uuid).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping(value ="/{uuid}/current_amount", produces = "application/json")

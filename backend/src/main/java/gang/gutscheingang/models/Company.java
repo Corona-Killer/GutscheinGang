@@ -5,8 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.net.URL;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 public class Company {
@@ -79,6 +78,10 @@ public class Company {
         this.street = company.street;
         this.postalCode = company.postalCode;
         this.city = company.city;
+    }
+
+    public void setSector(Sector sector) {
+        this.sector = sector;
     }
 
     public List<Voucher> getVoucherList() {
