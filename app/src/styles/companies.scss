@@ -1,0 +1,29 @@
+.company--card {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 200px 1fr max-content;
+	column-gap: 30px;
+	margin-bottom: 25px;
+}
+
+.company--card-text {
+	padding: 20px;
+}
+
+.company--card-image {
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	border-top-left-radius: 0.25rem;
+	border-bottom-left-radius: 0.25rem;
+}
+.company--card-buy-button {
+	display: block;
+	margin-top: auto;
+	padding: 0 20px 20px 0;
+}
+
+.mt-36 {
+	margin-top: 36px;
+}

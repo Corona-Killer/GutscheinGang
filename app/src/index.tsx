@@ -9,6 +9,7 @@ import store from './store';
 import 'bootstrap/scss/bootstrap.scss';
 import './styles/main.scss';
 import './styles/dropdown.scss';
+import './styles/companies.scss';
 import { getSectors } from './store/models/sectors/actions';
 import { getAllCompanies } from './store/models/companies/actions';
 

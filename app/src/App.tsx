@@ -19,6 +19,11 @@ class App extends Component {
 	// 	}, 300);
 	// }
 
+	// componentDidMount() {
+	// 	const elem = window.document.getElementsByTagName('body')[0];
+	// 	elem.setAttribute('style', '');
+	// }
+
 	render() {
 		return (
 			<React.Fragment>
