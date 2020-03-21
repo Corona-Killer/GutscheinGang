@@ -59,8 +59,11 @@ public class CompanyController {
     }
 
     @GetMapping(produces = "application/json")
-    public List<Company> getCompanies() {
-        return companyRepository.findAll();
+    public List<Company> getCompanies(@RequestParam int limit) {
+        if (limit == 0) {
+            return companyRepository.findTop(10);
+        }
+        return companyRepository.findTop(limit);
     }
 
     @GetMapping(value = "/{uuid}/voucher", produces = "application/json")
