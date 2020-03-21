@@ -1,11 +1,12 @@
 package gang.gutscheingang.controllers;
 
 import gang.gutscheingang.models.Company;
-import gang.gutscheingang.models.User;
+import gang.gutscheingang.models.SystemUser;
 import gang.gutscheingang.models.Voucher;
 import gang.gutscheingang.models.VoucherBuyTransaction;
 import gang.gutscheingang.repositories.CompanyRepository;
 import gang.gutscheingang.repositories.UserRepository;
+import gang.gutscheingang.repositories.VoucherRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,23 +24,26 @@ public class UserController {
 
     private UserRepository userRepository;
     private CompanyRepository companyRepository;
+    private VoucherRepository voucherRepository;
 
     @Autowired
-    public UserController(UserRepository userRepository, CompanyRepository companyRepository) {
+    public UserController(UserRepository userRepository, CompanyRepository companyRepository, VoucherRepository voucherRepository) {
         this.userRepository = userRepository;
         this.companyRepository = companyRepository;
+        this.voucherRepository = voucherRepository;
     }
 
     @PostMapping(produces = "application/json")
-    public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+    public SystemUser createUser(@RequestBody SystemUser systemUser) {
+        return userRepository.save(systemUser);
     }
 
     @PostMapping(value = "/{uuid}/voucher", produces = "application/json")
     public Voucher buyVoucher(@PathVariable UUID uuid, @RequestBody VoucherBuyTransaction transaction) {
-        User user = userRepository.findByUuid(uuid);
+        SystemUser systemUser = userRepository.findByUuid(uuid);
         Company company = companyRepository.findByUuid(transaction.getCompanyUuid());
-        return user.buyVoucher(company, transaction.getValueInEurCt());
+        Voucher voucher = systemUser.buyVoucher(company, transaction.getValueInEurCt());
+        return voucherRepository.save(voucher);
     }
 
     @GetMapping(value = "/{uuid}/companies", produces = "application/json")
@@ -48,17 +52,17 @@ public class UserController {
     }
 
     @GetMapping(value = "/{uuid}", produces = "application/json")
-    public User getUserById(@PathVariable UUID uuid) {
+    public SystemUser getUserById(@PathVariable UUID uuid) {
         return userRepository.findByUuid(uuid);
     }
 
     @PutMapping(value = "/{uuid}", produces = "application/json")
-    public User updateUser(@PathVariable UUID uuid, @RequestBody User user) {
+    public SystemUser updateUser(@PathVariable UUID uuid, @RequestBody SystemUser systemUser) {
         return userRepository.findById(uuid)
                 .map(
-                        foundUser -> {
-                            foundUser.updateWith(user);
-                            return userRepository.save(foundUser);
+                        foundSystemUser -> {
+                            foundSystemUser.updateWith(systemUser);
+                            return userRepository.save(foundSystemUser);
                         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
@@ -71,6 +75,4 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
-
-
 }

@@ -40,7 +40,7 @@ public class Company {
 
     @OneToOne
     @JsonIgnore
-    private User adminstrator;
+    private SystemUser adminstrator;
 
     @ElementCollection
     private List<URL> imageList;

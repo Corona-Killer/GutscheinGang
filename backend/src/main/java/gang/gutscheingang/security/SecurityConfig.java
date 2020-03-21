@@ -35,14 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        /*http.authorizeRequests()
                 .mvcMatchers("/user*").authenticated()
                 .mvcMatchers(HttpMethod.DELETE, "/company").authenticated()
                 .mvcMatchers(HttpMethod.POST, "/company").authenticated()
-                .mvcMatchers(HttpMethod.PUT, "/company").authenticated()
-                .mvcMatchers(HttpMethod.GET, "/company/*/voucher").authenticated()
-                .mvcMatchers("/voucher*").authenticated()
+                .mvcMatchers(HttpMethod.PUT, "/company").authenticated()*/
+        //        .mvcMatchers(HttpMethod.GET, "/company/*/voucher").authenticated()
+/*                .mvcMatchers("/voucher*").authenticated()
                 .and()
-                .oauth2ResourceServer().jwt();
-    }
+                .oauth2ResourceServer().jwt();*/
+        http.csrf().disable().authorizeRequests().anyRequest().permitAll();    }
 }

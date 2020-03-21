@@ -24,16 +24,6 @@ public class VoucherController {
         this.voucherRepository = voucherRepository;
     }
 
-    @PostMapping(produces = "application/json")
-    public Voucher createVoucher(@RequestBody Voucher voucher) {
-        return this.voucherRepository.save(voucher);
-    }
-
-    @GetMapping(produces = "application/json")
-    public List<Voucher> getVouchers() {
-        return voucherRepository.findAll();
-    }
-
     @GetMapping(value = "/{uuid}", produces = "application/json")
     public Voucher getVoucherById(@PathVariable UUID uuid) {
         return voucherRepository.findByUuid(uuid);

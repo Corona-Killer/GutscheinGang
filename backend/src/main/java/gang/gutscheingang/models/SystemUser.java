@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class User {
+public class SystemUser {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -31,11 +31,11 @@ public class User {
 
     private String jwtToken;
 
-    public void updateWith(User user) {
-        this.email = user.email;
-        this.voucherList = user.voucherList;
-        this.firstName = user.firstName;
-        this.lastName = user.lastName;
+    public void updateWith(SystemUser systemUser) {
+        this.email = systemUser.email;
+        this.voucherList = systemUser.voucherList;
+        this.firstName = systemUser.firstName;
+        this.lastName = systemUser.lastName;
     }
 
     public UUID getUuid() {

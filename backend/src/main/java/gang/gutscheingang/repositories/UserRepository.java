@@ -1,18 +1,18 @@
 package gang.gutscheingang.repositories;
 
-import gang.gutscheingang.models.User;
+import gang.gutscheingang.models.SystemUser;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import java.util.UUID;
 
-public interface UserRepository extends CrudRepository<User, UUID> {
+public interface UserRepository extends CrudRepository<SystemUser, UUID> {
 
-    public List<User> findByEmailIgnoreCase(String email);
+    public List<SystemUser> findByEmailIgnoreCase(String email);
 
-    public User findByUuid(UUID uuid);
+    public SystemUser findByUuid(UUID uuid);
 
     @Override
-    List<User> findAll();
+    List<SystemUser> findAll();
 
 }
