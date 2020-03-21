@@ -4,6 +4,7 @@ import BreadCrumb from '../layout/BreadCrumb';
 import * as Icons from 'react-feather';
 
 import '../../styles/jumbotron.scss';
+import Company from '../common/Company';
 
 class Home extends Component {
 	render() {
@@ -33,35 +34,15 @@ class Home extends Component {
 				<BreadCrumb />
 				<Container>
 					<h2>Content</h2>
-					<p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quisquam
-						repudiandae libero aut debitis consequatur officia, saepe voluptatibus optio
-						ab eveniet, ad ratione corporis necessitatibus, sint modi magni laboriosam
-						aliquid.
-					</p>
-					<p>
-						Sapiente reiciendis ratione autem corrupti possimus, quaerat eum dolor,
-						veniam perspiciatis dolorum mollitia nobis labore inventore fugiat odit
-						deserunt nisi corporis officiis quam, consectetur unde velit? Dolorum odit
-						repudiandae ad?
-					</p>
-					<p>
-						Odio eveniet repellendus fuga esse nisi ratione nam cumque aut culpa maiores
-						suscipit doloribus, incidunt enim placeat eius blanditiis iste ab quam!
-						Explicabo laudantium veniam, beatae dolor id in nesciunt.
-					</p>
-					<p>
-						Reiciendis ipsa debitis itaque ducimus optio cum eius rem nulla animi
-						doloremque unde cupiditate autem quas, necessitatibus porro aspernatur saepe
-						quia, deleniti nihil! Eveniet, magni. Cupiditate accusamus tenetur
-						praesentium esse?
-					</p>
-					<p>
-						Mollitia maiores animi dolores odio rem distinctio quis veritatis ratione
-						provident excepturi ab, delectus, saepe nisi unde perferendis sequi? Labore
-						cupiditate veniam facere dolorem blanditiis molestiae, enim animi sint
-						numquam.
-					</p>
+					<Company
+						id="1"
+						logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Logo_Edeka.svg/1200px-Logo_Edeka.svg.png"
+						city="Namborn"
+						name="Edeka Schneider"
+						postalCode={66640}
+						sector={{ name: 'Grocery store' }}
+						street="Allerburg 25"
+					/>
 				</Container>
 			</React.Fragment>
 		);

@@ -6,6 +6,7 @@ import AboutUs from './components/pages/AboutUs';
 import AboutTheProject from './components/pages/AboutTheProject';
 import FAQ from './components/pages/FAQ';
 import Home from './components/pages/Home';
+import Footer from './components/layout/Footer';
 
 class App extends Component {
 	// state = {
@@ -31,6 +32,7 @@ class App extends Component {
 							<Route exact path="/faq" component={FAQ} />
 						</Switch>
 					</main>
+					<Footer />
 				</Router>
 			</React.Fragment>
 		);
