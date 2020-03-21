@@ -18,10 +18,10 @@ public class User {
     private UUID uuid;
     private String email;
 
-    @ElementCollection
+    @OneToMany
     private List<Voucher> voucherList;
 
-    @ElementCollection
+    @OneToMany
     private List<Company> companyList;
 
     private String firstName;
