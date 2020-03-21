@@ -38,6 +38,10 @@ public class Voucher {
         return voucherId;
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
     public boolean isUsed() {
         return isUsed;
     }
