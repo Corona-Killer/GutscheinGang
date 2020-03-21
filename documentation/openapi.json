@@ -4,12 +4,6 @@
       "Company": {
         "type": "object",
         "properties": {
-          "voucherList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Voucher"
-            }
-          },
           "city": {
             "type": "string"
           },
@@ -93,12 +87,6 @@
               "$ref": "#/components/schemas/Voucher"
             }
           },
-          "companyList": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Company"
-            }
-          },
           "uuid": {
             "format": "uuid",
             "type": "string"
@@ -117,6 +105,23 @@
           "uuid": {
             "format": "uuid",
             "type": "string"
+          }
+        }
+      },
+      "VoucherBuyTransaction": {
+        "type": "object",
+        "properties": {
+          "userUuid": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "companyUuid": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "valueInEurCt": {
+            "format": "int32",
+            "type": "integer"
           }
         }
       },
@@ -192,7 +197,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Company"
+                  }
                 }
               }
             }
@@ -239,7 +247,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Voucher"
+                  }
                 }
               }
             }
@@ -338,6 +349,46 @@
         ],
         "tags": [
           "Companies"
+        ]
+      }
+    },
+    "/user/{uuid}/voucher": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/VoucherBuyTransaction"
+              }
+            }
+          }
+        },
+        "operationId": "buyVoucher",
+        "responses": {
+          "200": {
+            "description": "default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Voucher"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "in": "path",
+            "name": "uuid",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Users"
         ]
       }
     },
@@ -453,25 +504,21 @@
         "tags": [
           "Vouchers"
         ]
-      },
-      "put": {
-        "requestBody": {
-          "content": {
-            "*/*": {
-              "schema": {
-                "$ref": "#/components/schemas/Voucher"
-              }
-            }
-          }
-        },
-        "operationId": "updateVoucher",
+      }
+    },
+    "/company/{uuid}/voucher": {
+      "get": {
+        "operationId": "getVouchersOfCompany",
         "responses": {
           "200": {
             "description": "default response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Voucher"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Voucher"
+                  }
                 }
               }
             }
@@ -489,7 +536,7 @@
           }
         ],
         "tags": [
-          "Vouchers"
+          "Companies"
         ]
       }
     },
@@ -512,24 +559,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Users"
-        ]
-      },
-      "get": {
-        "operationId": "getUsers",
-        "responses": {
-          "200": {
-            "description": "default response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
                 }
               }
             }
@@ -610,6 +639,40 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "in": "path",
+            "name": "uuid",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/user/{uuid}/companies": {
+      "get": {
+        "operationId": "getCompaniesOfUser",
+        "responses": {
+          "200": {
+            "description": "default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Company"
+                  }
                 }
               }
             }

@@ -41,7 +41,7 @@ public class CompanyController {
         return companyRepository.findAll();
     }
 
-    @GetMapping(value = "/{uuid}", produces = "application/json")
+    @GetMapping(value = "/{uuid}/voucher", produces = "application/json")
     public List<Voucher> getVouchersOfCompany(@PathVariable UUID uuid) {
         return companyRepository.findByUuid(uuid).getVoucherList();
     }
@@ -70,7 +70,6 @@ public class CompanyController {
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-
     }
 
 

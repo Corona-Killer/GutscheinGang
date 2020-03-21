@@ -49,6 +49,7 @@ public class User {
     public List<Voucher> getVoucherList() {
         return voucherList;
     }
+
     public List<Company> getCompanyList() {
         return companyList;
     }
@@ -61,4 +62,9 @@ public class User {
         return lastName;
     }
 
+    public Voucher buyVoucher(Company company, int valueInEurCt) {
+        Voucher voucher = new Voucher(company, valueInEurCt);
+        voucherList.add(voucher);
+        return voucher;
+    }
 }
