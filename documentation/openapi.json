@@ -72,7 +72,19 @@
           }
         }
       },
-      "User": {
+      "Sector": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "uuid": {
+            "format": "uuid",
+            "type": "string"
+          }
+        }
+      },
+      "SystemUser": {
         "type": "object",
         "properties": {
           "firstName": {
@@ -92,18 +104,6 @@
             "type": "string"
           },
           "email": {
-            "type": "string"
-          }
-        }
-      },
-      "Sector": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "uuid": {
-            "format": "uuid",
             "type": "string"
           }
         }
@@ -208,56 +208,6 @@
         },
         "tags": [
           "Companies"
-        ]
-      }
-    },
-    "/voucher": {
-      "post": {
-        "requestBody": {
-          "content": {
-            "*/*": {
-              "schema": {
-                "$ref": "#/components/schemas/Voucher"
-              }
-            }
-          }
-        },
-        "operationId": "createVoucher",
-        "responses": {
-          "200": {
-            "description": "default response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Voucher"
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Vouchers"
-        ]
-      },
-      "get": {
-        "operationId": "getVouchers",
-        "responses": {
-          "200": {
-            "description": "default response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Voucher"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Vouchers"
         ]
       }
     },
@@ -546,7 +496,7 @@
           "content": {
             "*/*": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/SystemUser"
               }
             }
           }
@@ -558,7 +508,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/SystemUser"
                 }
               }
             }
@@ -578,7 +528,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/SystemUser"
                 }
               }
             }
@@ -626,7 +576,7 @@
           "content": {
             "*/*": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/SystemUser"
               }
             }
           }
@@ -638,7 +588,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "$ref": "#/components/schemas/SystemUser"
                 }
               }
             }
