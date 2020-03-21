@@ -1,0 +1,15 @@
+$image: url('../resources/images/jumbotron.jpg');
+$gradient: radial-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3));
+
+.jumbotron {
+	border-radius: 0 !important;
+	h1 {
+		text-shadow: 0 0 15px #000;
+	}
+}
+.jumbotron-background {
+	// min-height: 500px;
+	background-image: $gradient, $image;
+	background-size: cover;
+	background-position: center;
+}

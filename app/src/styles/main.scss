@@ -1,0 +1,38 @@
+@font-face {
+	font-family: 'TrashHand';
+	src: url('./fonts/TrashHand.TTF');
+}
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
+* {
+	font-family: 'Nunito', sans-serif;
+}
+
+.select {
+	user-select: auto;
+}
+.noselect {
+	user-select: none;
+}
+
+.custom-font {
+	font-family: 'TrashHand', sans-serif;
+}
+span.uppercase {
+	text-transform: uppercase;
+}
+
+// Hide scrollbar
+::-webkit-scrollbar {
+	display: none;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+main {
+	margin-top: 56px;
+	flex: 1;
+}
