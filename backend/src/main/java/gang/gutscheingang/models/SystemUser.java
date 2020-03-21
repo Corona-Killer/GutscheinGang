@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
+import javax.validation.constraints.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,11 +33,11 @@ public class SystemUser {
     private List<Company> companyList;
 
     @NotNull
-    @Min(1)
+    @Size(min = 1)
     private String firstName;
 
     @NotNull
-    @Min(1)
+    @Size(min = 1)
     private String lastName;
 
     private String jwtToken;
