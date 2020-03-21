@@ -1,5 +1,18 @@
 <div class="container-fluid navbar">
-  <div class="nav">
-    <span *ngFor="let link of links" [routerLink]="[link.link]">{{link.text}}</span>
-  </div>
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <div class="sidebar">
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item" *ngFor="let link of links">
+              <a [routerLink]="[link.link]" class="nav-link">
+                <i class="fas fa-tachometer-alt nav-icon"></i>
+                <p>{{link.text}}</p>
+              </a>
+            </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      <!-- /.sidebar -->
+     </div>
+    </aside>
 </div>
