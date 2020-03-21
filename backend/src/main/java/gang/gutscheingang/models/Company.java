@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.net.URL;
 import java.util.*;
 
@@ -18,11 +19,16 @@ public class Company {
     )
     private UUID uuid;
 
+    @NotNull
+    @Size(min = 5)
     private String name;
 
+    @NotNull
+    @Size(min = 5)
     private String description;
 
     @ManyToOne
+    @NotNull
     private Sector sector;
 
     private URL logoUrl;
@@ -50,16 +56,25 @@ public class Company {
 
     @OneToMany
     @JsonIgnore
+    @Null
     private List<Voucher> voucherList;
 
     private String needHelpBecause;
 
+    @NotNull
+    @Email
     private String paypalAddress;
 
+    @NotNull
+    @Size(min = 1)
     private String street;
 
+    @NotNull
+    @Min(10000)
     private int postalCode;
 
+    @NotNull
+    @Size(min = 1)
     private String city;
 
     public void updateWith(Company company) {

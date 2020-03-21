@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.AssertFalse;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.UUID;
 
 /**
@@ -23,12 +26,16 @@ public class Voucher {
     private UUID uuid;
 
     @OneToOne
+    @NotNull
     private Company company;
 
+    @Null
     private int valueInEurCt;
 
+    @NotNull
     private int defaultValueInEurCt;
 
+    @AssertFalse
     private boolean isPaid;
 
     /**
@@ -37,6 +44,7 @@ public class Voucher {
     @GeneratedValue
     private String voucherId;
 
+    @AssertFalse
     private boolean isUsed;
 
     public Voucher() {}

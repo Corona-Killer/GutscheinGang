@@ -9,10 +9,10 @@ import java.util.UUID;
 
 public interface CompanyRepository extends CrudRepository<Company, UUID> {
 
-    public List<Company> findTopByNameIgnoreCase(String name);
+    public List<Company> findFirstByNameIgnoreCase(String name);
 
     public Company findByUuid(UUID uuid);
 
-    List<Company> findTop(int num);
+    List<Company> findAll();
 
 }

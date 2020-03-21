@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,7 +39,7 @@ public class CompanyController {
      * @return the created company
      */
     @PostMapping(produces = "application/json")
-    public Company createCompany(@RequestBody Company company) {
+    public Company createCompany(@RequestBody @Valid Company company) {
         if(!CompanyValidator.validate(company))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
@@ -61,9 +62,9 @@ public class CompanyController {
     @GetMapping(produces = "application/json")
     public List<Company> getCompanies(@RequestParam int limit) {
         if (limit == 0) {
-            return companyRepository.findTop(10);
+            return companyRepository.findAll();
         }
-        return companyRepository.findTop(limit);
+        return companyRepository.findAll();
     }
 
     @GetMapping(value = "/{uuid}/voucher", produces = "application/json")
@@ -77,7 +78,7 @@ public class CompanyController {
     }
 
     @PutMapping(value = "/{uuid}", produces = "application/json")
-    public Company updateCompany(@PathVariable UUID uuid, @RequestBody Company company) {
+    public Company updateCompany(@PathVariable UUID uuid, @RequestBody @Valid Company company) {
         return companyRepository.findById(uuid)
                 .map(
                         foundCompany -> {
