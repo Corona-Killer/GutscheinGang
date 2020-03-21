@@ -44,5 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 /*                .mvcMatchers("/voucher*").authenticated()
                 .and()
                 .oauth2ResourceServer().jwt();*/
-        http.csrf().disable().authorizeRequests().anyRequest().permitAll();    }
+        http.csrf().disable().authorizeRequests().anyRequest().permitAll();
+    }
 }

@@ -2,6 +2,7 @@ package gang.gutscheingang.controllers;
 
 import gang.gutscheingang.models.Company;
 import gang.gutscheingang.models.SystemUser;
+
 import gang.gutscheingang.models.Voucher;
 import gang.gutscheingang.models.VoucherBuyTransaction;
 import gang.gutscheingang.repositories.CompanyRepository;
@@ -45,6 +46,7 @@ public class UserController {
         Voucher voucher = systemUser.buyVoucher(company, transaction.getValueInEurCt());
         return voucherRepository.save(voucher);
     }
+
 
     @GetMapping(value = "/{uuid}/companies", produces = "application/json")
     public List<Company> getCompaniesOfUser(@PathVariable UUID uuid) {

@@ -42,6 +42,7 @@ public class Company {
     @JsonIgnore
     private SystemUser adminstrator;
 
+
     @ElementCollection
     private List<URL> imageList;
 
