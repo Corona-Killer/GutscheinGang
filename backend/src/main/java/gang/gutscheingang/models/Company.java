@@ -39,6 +39,7 @@ public class Company {
     private URL instagramUrl;
 
     @OneToOne
+    @JsonIgnore
     private User adminstrator;
 
     @ElementCollection

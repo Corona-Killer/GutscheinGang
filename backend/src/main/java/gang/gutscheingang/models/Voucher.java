@@ -32,20 +32,21 @@ public class Voucher {
     /**
      * The voucher ID that is presented to the company employee that has 8 characters.
      */
+    @GeneratedValue
     private String voucherId;
 
     private boolean isUsed;
 
-    public void setUsed(boolean usedSate) {
-        this.isUsed = usedSate;
+    public Voucher() {}
+
+    public Voucher(Company company, int defaultValueInEurCt) {
+        this.company = company;
+        this.defaultValueInEurCt = defaultValueInEurCt;
+        this.valueInEurCt = defaultValueInEurCt;
     }
 
-    public void subtractValueInEurCt(int valueToSubtract) {
-        int temp = this.valueInEurCt - valueToSubtract;
-        if(temp < 0) {
-            throw new IllegalArgumentException();
-        }
-        this.valueInEurCt = temp;
+    public void setUsed(boolean usedSate) {
+        this.isUsed = usedSate;
     }
 
     public Company getCompany() {
@@ -55,6 +56,7 @@ public class Voucher {
     public int getValueInEurCt() {
         return valueInEurCt;
     }
+
     public int getDefaultValueInEurCt() {
         return defaultValueInEurCt;
     }
@@ -69,5 +71,17 @@ public class Voucher {
 
     public boolean isUsed() {
         return isUsed;
+    }
+
+    /**
+     * Use a voucher and subtract the used amount of money from the value.
+     * @param valueToSubtract the value to subtract
+     */
+    public void subtractValueInEurCt(int valueToSubtract) {
+        int temp = this.valueInEurCt - valueToSubtract;
+        if(temp < 0) {
+            throw new IllegalArgumentException();
+        }
+        this.valueInEurCt = temp;
     }
 }

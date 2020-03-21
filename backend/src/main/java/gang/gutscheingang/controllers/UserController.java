@@ -2,7 +2,9 @@ package gang.gutscheingang.controllers;
 
 import gang.gutscheingang.models.Company;
 import gang.gutscheingang.models.User;
-import gang.gutscheingang.repositories.SectorRepository;
+import gang.gutscheingang.models.Voucher;
+import gang.gutscheingang.models.VoucherBuyTransaction;
+import gang.gutscheingang.repositories.CompanyRepository;
 import gang.gutscheingang.repositories.UserRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +22,24 @@ import java.util.UUID;
 public class UserController {
 
     private UserRepository userRepository;
+    private CompanyRepository companyRepository;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, CompanyRepository companyRepository) {
         this.userRepository = userRepository;
+        this.companyRepository = companyRepository;
     }
 
     @PostMapping(produces = "application/json")
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);
+    }
+
+    @PostMapping(value = "/{uuid}/voucher", produces = "application/json")
+    public Voucher buyVoucher(@PathVariable UUID uuid, @RequestBody VoucherBuyTransaction transaction) {
+        User user = userRepository.findByUuid(uuid);
+        Company company = companyRepository.findByUuid(transaction.getCompanyUuid());
+        return user.buyVoucher(company, transaction.getValueInEurCt());
     }
 
     @GetMapping(value = "/{uuid}/companies", produces = "application/json")
