@@ -21,7 +21,7 @@ export const getUser = (uuid: string) => async (dispatch: Dispatch<AnyAction>) =
  * Get companies for user with given ID
  * @param {string} uuid User ID
  */
-export const getCompanies = (uuid: string) => async (dispatch: Dispatch<AnyAction>) => { };
+export const getCompaniesForUser = (uuid: string) => async (dispatch: Dispatch<AnyAction>) => { };
 
 /**
  * 

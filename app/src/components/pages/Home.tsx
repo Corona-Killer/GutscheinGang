@@ -34,7 +34,7 @@ class Home extends Component {
 				<BreadCrumb />
 				<Container>
 					<h2>Content</h2>
-					<Company
+					{/* <Company
 						id="1"
 						logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Logo_Edeka.svg/1200px-Logo_Edeka.svg.png"
 						city="Namborn"
@@ -42,7 +42,7 @@ class Home extends Component {
 						postalCode={66640}
 						sector={{ name: 'Grocery store' }}
 						street="Allerburg 25"
-					/>
+					/> */}
 				</Container>
 			</React.Fragment>
 		);

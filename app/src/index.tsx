@@ -10,10 +10,12 @@ import 'bootstrap/scss/bootstrap.scss';
 import './styles/main.scss';
 import './styles/dropdown.scss';
 import { getSectors } from './store/models/sectors/actions';
+import { getAllCompanies } from './store/models/companies/actions';
 
 const App = lazy(() => import('./App'));
 
 store.dispatch(getSectors());
+store.dispatch(getAllCompanies());
 
 ReactDOM.render(
 	<React.StrictMode>
