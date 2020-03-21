@@ -12,4 +12,7 @@ public interface UserRepository extends CrudRepository<User, UUID> {
 
     public User findByUuid(UUID uuid);
 
+    @Override
+    List<User> findAll();
+
 }

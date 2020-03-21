@@ -10,4 +10,7 @@ public interface VoucherRepository extends CrudRepository<Voucher, UUID> {
 
     public Voucher findByUuid(UUID uuid);
 
+    @Override
+    List<Voucher> findAll();
+
 }

@@ -4,6 +4,12 @@
       "Company": {
         "type": "object",
         "properties": {
+          "voucherList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Voucher"
+            }
+          },
           "city": {
             "type": "string"
           },
@@ -87,6 +93,12 @@
               "$ref": "#/components/schemas/Voucher"
             }
           },
+          "companyList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Company"
+            }
+          },
           "uuid": {
             "format": "uuid",
             "type": "string"
@@ -114,8 +126,19 @@
           "voucherId": {
             "type": "string"
           },
+          "company": {
+            "$ref": "#/components/schemas/Company"
+          },
+          "defaultValueInEurCt": {
+            "format": "int32",
+            "type": "integer"
+          },
           "used": {
             "type": "boolean"
+          },
+          "uuid": {
+            "format": "uuid",
+            "type": "string"
           },
           "valueInEurCt": {
             "format": "int32",
@@ -147,7 +170,7 @@
         "operationId": "createCompany",
         "responses": {
           "200": {
-            "description": "create company",
+            "description": "default response",
             "content": {
               "application/json": {
                 "schema": {
@@ -156,7 +179,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "Companies"
+        ]
       },
       "get": {
         "operationId": "getCompanies",
@@ -171,7 +197,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "Companies"
+        ]
       }
     },
     "/voucher": {
@@ -197,7 +226,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "Vouchers"
+        ]
       },
       "get": {
         "operationId": "getVouchers",
@@ -207,15 +239,15 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Voucher"
-                  }
+                  "type": "object"
                 }
               }
             }
           }
-        }
+        },
+        "tags": [
+          "Vouchers"
+        ]
       }
     },
     "/company/{uuid}": {
@@ -243,17 +275,16 @@
             "name": "uuid",
             "required": true
           }
+        ],
+        "tags": [
+          "Companies"
         ]
       },
       "delete": {
-        "summary": "Delete existing person",
         "operationId": "deleteCompany",
         "responses": {
-          "204": {
-            "description": "Person has been deleted"
-          },
-          "404": {
-            "description": "Person with such e-mail doesn\u0027t exists"
+          "200": {
+            "description": "default response"
           }
         },
         "parameters": [
@@ -266,6 +297,9 @@
             "name": "uuid",
             "required": true
           }
+        ],
+        "tags": [
+          "Companies"
         ]
       },
       "put": {
@@ -301,6 +335,50 @@
             "name": "uuid",
             "required": true
           }
+        ],
+        "tags": [
+          "Companies"
+        ]
+      }
+    },
+    "/voucher/{uuid}/current_amount": {
+      "put": {
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "format": "int32",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "operationId": "updateVoucherAmount",
+        "responses": {
+          "200": {
+            "description": "default response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Voucher"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "in": "path",
+            "name": "uuid",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Vouchers"
         ]
       }
     },
@@ -313,15 +391,15 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
+                  "type": "object"
                 }
               }
             }
           }
-        }
+        },
+        "tags": [
+          "Sectors"
+        ]
       }
     },
     "/voucher/{uuid}": {
@@ -349,20 +427,16 @@
             "name": "uuid",
             "required": true
           }
+        ],
+        "tags": [
+          "Vouchers"
         ]
       },
       "delete": {
         "operationId": "deleteVoucher",
         "responses": {
           "200": {
-            "description": "default response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Voucher"
-                }
-              }
-            }
+            "description": "default response"
           }
         },
         "parameters": [
@@ -375,6 +449,9 @@
             "name": "uuid",
             "required": true
           }
+        ],
+        "tags": [
+          "Vouchers"
         ]
       },
       "put": {
@@ -410,6 +487,9 @@
             "name": "uuid",
             "required": true
           }
+        ],
+        "tags": [
+          "Vouchers"
         ]
       }
     },
@@ -436,7 +516,10 @@
               }
             }
           }
-        }
+        },
+        "tags": [
+          "Users"
+        ]
       },
       "get": {
         "operationId": "getUsers",
@@ -446,45 +529,20 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/user/{uuid}": {
-      "get": {
-        "operationId": "getUserById",
-        "responses": {
-          "200": {
-            "description": "default response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
+                  "type": "object"
                 }
               }
             }
           }
         },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "path",
-            "name": "uuid",
-            "required": true
-          }
+        "tags": [
+          "Users"
         ]
-      },
-      "delete": {
-        "operationId": "deleteUser",
+      }
+    },
+    "/user/{uuid}": {
+      "get": {
+        "operationId": "getUserById",
         "responses": {
           "200": {
             "description": "default response",
@@ -507,6 +565,31 @@
             "name": "uuid",
             "required": true
           }
+        ],
+        "tags": [
+          "Users"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteUser",
+        "responses": {
+          "200": {
+            "description": "default response"
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "in": "path",
+            "name": "uuid",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Users"
         ]
       },
       "put": {
@@ -542,6 +625,9 @@
             "name": "uuid",
             "required": true
           }
+        ],
+        "tags": [
+          "Users"
         ]
       }
     }

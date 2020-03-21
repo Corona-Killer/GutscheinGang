@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping(produces = "application/json")
-    public Iterable<User> getUsers() {
+    public List<User> getUsers() {
         return userRepository.findAll();
     }
 

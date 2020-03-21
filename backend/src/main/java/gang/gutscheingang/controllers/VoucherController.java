@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,7 +31,7 @@ public class VoucherController {
     }
 
     @GetMapping(produces = "application/json")
-    public Iterable<Voucher> getVouchers() {
+    public List<Voucher> getVouchers() {
         return voucherRepository.findAll();
     }
 

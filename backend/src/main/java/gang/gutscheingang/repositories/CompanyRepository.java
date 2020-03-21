@@ -13,4 +13,7 @@ public interface CompanyRepository extends CrudRepository<Company, UUID> {
 
     public Company findByUuid(UUID uuid);
 
+    @Override
+    List<Company> findAll();
+
 }
