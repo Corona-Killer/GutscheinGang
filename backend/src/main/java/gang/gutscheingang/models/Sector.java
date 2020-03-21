@@ -2,9 +2,7 @@ package gang.gutscheingang.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -16,6 +14,8 @@ public class Sector {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )    private UUID uuid;
+
+    @Column(unique = true)
     private String name;
 
     public UUID getUuid() {

@@ -43,14 +43,16 @@ public class CompanyController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
         Sector sector;
-        try {
-            sector = sectorRepository.findByUuid(company.getSector().getUuid());
-        } catch (Exception ex) {
-            if(!SectorValidator.validate(company.getSector()))
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        if(!SectorValidator.validate(company.getSector()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
+        sector = sectorRepository.findByNameIgnoreCase(company.getSector().getName());
+
+        // if not found add
+        if (sector == null) {
             sector = sectorRepository.save(company.getSector());
         }
+
         company.setSector(sector);
 
         return companyRepository.save(company);
