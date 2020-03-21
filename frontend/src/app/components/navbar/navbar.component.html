@@ -1,0 +1,5 @@
+<div class="container-fluid navbar">
+  <div class="nav">
+    <span *ngFor="let link of links" [routerLink]="[link.link]">{{link.text}}</span>
+  </div>
+</div>
