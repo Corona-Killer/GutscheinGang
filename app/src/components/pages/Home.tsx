@@ -8,6 +8,7 @@ import { CompaniesState } from '../../store/models/companies/reducer';
 import { connect } from 'react-redux';
 
 import '../../styles/jumbotron.scss';
+import AddCompany from '../modals/companies/AddCompany';
 
 interface Props {
 	companies: CompaniesState;
@@ -47,6 +48,7 @@ class Home extends Component<Props> {
 				<BreadCrumb />
 				<Container>
 					<h2>Content</h2>
+					<AddCompany />
 					{companies.data.length > 0 &&
 						companies.data.map((company) => {
 							return <CompanyItem key={company.uuid} company={company} />;
