@@ -49,7 +49,7 @@ public class VoucherController {
                         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping(value ="/{uuid}/amount", produces = "application/json")
+    @PutMapping(value ="/{uuid}/current_amount", produces = "application/json")
     public Voucher updateVoucherAmount(@PathVariable UUID uuid, @RequestBody int amount) {
         return voucherRepository.findById(uuid)
                 .map(
