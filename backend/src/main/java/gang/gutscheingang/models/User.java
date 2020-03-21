@@ -18,13 +18,23 @@ public class User {
     private UUID uuid;
     private String email;
 
-    @OneToMany
+    @ElementCollection
     private List<Voucher> voucherList;
+
+    @ElementCollection
+    private List<Company> companyList;
 
     private String firstName;
     private String lastName;
 
     private String jwtToken;
+
+    public void updateWith(User user) {
+        this.email = user.email;
+        this.voucherList = user.voucherList;
+        this.firstName = user.firstName;
+        this.lastName = user.lastName;
+    }
 
     public UUID getUuid() {
         return uuid;
@@ -36,6 +46,9 @@ public class User {
 
     public List<Voucher> getVoucherList() {
         return voucherList;
+    }
+    public List<Company> getCompanyList() {
+        return companyList;
     }
 
     public String getFirstName() {

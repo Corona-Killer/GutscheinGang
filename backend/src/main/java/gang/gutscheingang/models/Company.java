@@ -37,11 +37,17 @@ public class Company {
 
     private URL instagramUrl;
 
+    @OneToOne
+    private User adminstrator;
+
     @ElementCollection
     private List<URL> imageList;
 
     @ElementCollection
     private List<String> tags;
+
+    @OneToMany
+    private List<Voucher> voucherList;
 
     private String needHelpBecause;
 
@@ -69,6 +75,10 @@ public class Company {
         this.street = company.street;
         this.postalCode = company.postalCode;
         this.city = company.city;
+    }
+
+    public List<Voucher> getVoucherList() {
+        return voucherList;
     }
 
     public UUID getUuid() {
