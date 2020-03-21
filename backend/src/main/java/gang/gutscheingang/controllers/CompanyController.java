@@ -1,8 +1,12 @@
 package gang.gutscheingang.controllers;
 
 import gang.gutscheingang.models.Company;
+import gang.gutscheingang.models.Sector;
 import gang.gutscheingang.models.Voucher;
 import gang.gutscheingang.repositories.CompanyRepository;
+import gang.gutscheingang.repositories.SectorRepository;
+import gang.gutscheingang.validators.CompanyValidator;
+import gang.gutscheingang.validators.SectorValidator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +24,10 @@ import java.util.UUID;
 public class CompanyController {
 
     private CompanyRepository companyRepository;
+    private SectorRepository sectorRepository;
 
     @Autowired
-    public CompanyController(CompanyRepository companyRepository) {
+    public CompanyController(CompanyRepository companyRepository, SectorRepository sectorRepository) {
         this.companyRepository = companyRepository;
     }
 
@@ -33,6 +38,20 @@ public class CompanyController {
      */
     @PostMapping(produces = "application/json")
     public Company createCompany(@RequestBody Company company) {
+        if(!CompanyValidator.validate(company))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+        Sector sector;
+        try {
+            sector = sectorRepository.findByUuid(company.getSector().getUuid());
+        } catch (Exception ex) {
+            if(!SectorValidator.validate(company.getSector()))
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
+            sector = sectorRepository.save(company.getSector());
+        }
+        company.setSector(sector);
+
         return companyRepository.save(company);
     }
 
@@ -43,18 +62,16 @@ public class CompanyController {
 
     @GetMapping(value = "/{uuid}/voucher", produces = "application/json")
     public List<Voucher> getVouchersOfCompany(@PathVariable UUID uuid) {
-        return companyRepository.findByUuid(uuid).getVoucherList();
+        return companyRepository.findById(uuid).map(Company::getVoucherList).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping(value = "/{uuid}", produces = "application/json")
     public Company getCompanyById(@PathVariable UUID uuid) {
-        return companyRepository.findByUuid(uuid);
+        return companyRepository.findById(uuid).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping(value = "/{uuid}", produces = "application/json")
     public Company updateCompany(@PathVariable UUID uuid, @RequestBody Company company) {
-        // TODO
-
         return companyRepository.findById(uuid)
                 .map(
                         foundCompany -> {

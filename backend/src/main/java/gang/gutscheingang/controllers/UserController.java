@@ -8,6 +8,8 @@ import gang.gutscheingang.models.VoucherBuyTransaction;
 import gang.gutscheingang.repositories.CompanyRepository;
 import gang.gutscheingang.repositories.UserRepository;
 import gang.gutscheingang.repositories.VoucherRepository;
+import gang.gutscheingang.validators.CompanyValidator;
+import gang.gutscheingang.validators.UserValidator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,13 +38,16 @@ public class UserController {
 
     @PostMapping(produces = "application/json")
     public SystemUser createUser(@RequestBody SystemUser systemUser) {
+        if(!UserValidator.validate(systemUser))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
         return userRepository.save(systemUser);
     }
 
     @PostMapping(value = "/{uuid}/voucher", produces = "application/json")
     public Voucher buyVoucher(@PathVariable UUID uuid, @RequestBody VoucherBuyTransaction transaction) {
-        SystemUser systemUser = userRepository.findByUuid(uuid);
-        Company company = companyRepository.findByUuid(transaction.getCompanyUuid());
+        SystemUser systemUser = userRepository.findById(uuid).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Company company = companyRepository.findById(transaction.getCompanyUuid()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));;
         Voucher voucher = systemUser.buyVoucher(company, transaction.getValueInEurCt());
         return voucherRepository.save(voucher);
     }
@@ -50,7 +55,7 @@ public class UserController {
 
     @GetMapping(value = "/{uuid}/companies", produces = "application/json")
     public List<Company> getCompaniesOfUser(@PathVariable UUID uuid) {
-        return userRepository.findByUuid(uuid).getCompanyList();
+        return userRepository.findById(uuid).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)).getCompanyList();
     }
 
     @GetMapping(value = "/{uuid}", produces = "application/json")

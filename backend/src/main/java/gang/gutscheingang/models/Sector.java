@@ -25,4 +25,8 @@ public class Sector {
     public String getName() {
         return name;
     }
+
+    public boolean isValid() {
+        return name != null && name.length() > 0;
+    }
 }
