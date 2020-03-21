@@ -2,7 +2,7 @@ HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
-backend/src/main/resources/application_local.properties
+backend/src/main/resources/application.properties
 ### STS ###
 .apt_generated
 .classpath
