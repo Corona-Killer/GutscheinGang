@@ -29,6 +29,8 @@ public class Voucher {
 
     private int defaultValueInEurCt;
 
+    private boolean isPaid;
+
     /**
      * The voucher ID that is presented to the company employee that has 8 characters.
      */

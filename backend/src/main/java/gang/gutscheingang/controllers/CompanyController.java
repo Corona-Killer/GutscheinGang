@@ -29,6 +29,7 @@ public class CompanyController {
     @Autowired
     public CompanyController(CompanyRepository companyRepository, SectorRepository sectorRepository) {
         this.companyRepository = companyRepository;
+        this.sectorRepository = sectorRepository;
     }
 
     /**
