@@ -14,6 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("user")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Tag(name="Users")
 public class UserController {
 

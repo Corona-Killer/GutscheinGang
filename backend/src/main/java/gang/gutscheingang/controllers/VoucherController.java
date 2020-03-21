@@ -15,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("voucher")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Tag(name="Vouchers")
 public class VoucherController {
 

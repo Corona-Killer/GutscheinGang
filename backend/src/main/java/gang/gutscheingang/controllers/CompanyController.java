@@ -14,6 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("company")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Tag(name="Companies")
 public class CompanyController {
 
