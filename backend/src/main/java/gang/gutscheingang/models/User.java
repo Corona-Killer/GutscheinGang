@@ -1,5 +1,6 @@
 package gang.gutscheingang.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class User {
     private List<Voucher> voucherList;
 
     @OneToMany
+    @JsonIgnore
     private List<Company> companyList;
 
     private String firstName;

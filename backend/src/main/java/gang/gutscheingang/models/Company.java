@@ -1,5 +1,6 @@
 package gang.gutscheingang.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -47,6 +48,7 @@ public class Company {
     private List<String> tags;
 
     @OneToMany
+    @JsonIgnore
     private List<Voucher> voucherList;
 
     private String needHelpBecause;
