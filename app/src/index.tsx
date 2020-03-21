@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Dots } from 'react-preloaders';
+// redux
+import { Provider } from 'react-redux';
+import store from './store';
 
 import 'bootstrap/scss/bootstrap.scss';
 import './styles/main.scss';
 import './styles/dropdown.scss';
+import { getSectors } from './store/models/sectors/actions';
+
+const App = lazy(() => import('./App'));
+
+store.dispatch(getSectors());
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<Provider store={store}>
+			<Suspense fallback={<Dots customLoading={true} />}>
+				<App />
+			</Suspense>
+		</Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
