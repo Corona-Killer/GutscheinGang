@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
 					<span className="text-light">&copy; {currentYear} GutscheinGang</span>
 				</div>
 				<div>
-					<Link to="/legal" className="text-secondary">
+					<Link to="/legal/imprint" className="text-secondary">
 						Impressum
 					</Link>
 				</div>

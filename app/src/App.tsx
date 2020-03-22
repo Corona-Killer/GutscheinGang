@@ -5,6 +5,7 @@ import NavBar from './components/layout/NavBar';
 import AboutUs from './components/pages/AboutUs';
 import Home from './components/pages/Home';
 import Footer from './components/layout/Footer';
+import Imprint from './components/pages/legal/imprint';
 
 class App extends Component {
 	// state = {
@@ -31,6 +32,7 @@ class App extends Component {
 						<Switch>
 							<Route exact path="/" component={Home} />
 							<Route exact path="/about-us" component={AboutUs} />
+							<Route exact path="/legal/imprint" component={Imprint} />
 						</Switch>
 					</main>
 					<Footer />

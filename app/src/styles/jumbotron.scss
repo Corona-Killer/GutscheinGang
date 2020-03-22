@@ -15,3 +15,11 @@ $gradient: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 	display: grid;
 	justify-content: center;
 }
+
+
+.jumbatron--search {
+	display: grid;
+	justify-content: stretch;
+	grid-column: 1fr;
+	width:100%;
+}

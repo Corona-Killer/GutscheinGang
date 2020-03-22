@@ -11,32 +11,40 @@ import '../../styles/jumbotron.scss';
 import '../../styles/home.scss';
 import AddCompany from '../modals/companies/AddCompany';
 import { SectorsState } from '../../store/models/sectors/reducer';
+import AutoCompleteInput from '../util/AutoCompleteInput/AutoCompleteInput';
+import { Keys } from '../util/AutoCompleteInput/keys';
+
+const mapStateToProps = (state: StoreState) => ({
+	companies: state.companies,
+	sectors: state.sectors
+});
 
 interface Props {
 	companies: CompaniesState;
 	sectors: SectorsState;
 }
+interface State {
+	searchInput: string;
+}
 
-const mapStateToProps = (state: StoreState) => ({
-	companies: state.companies,
-	sectors: state.sectors
+const initState: State = {
+	searchInput: ''
+};
 
-});
+class Home extends Component<Props, State> {
+	onChangeSearch = (e: React.FormEvent<HTMLInputElement>) => {
+		this.setState({ searchInput: e.currentTarget.value });
+	};
 
-class Home extends Component<Props> {
-
-	onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key == 'Enter') {
-
+	onSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.keyCode === Keys.ENTER) {
+			console.log('search', this.state.searchInput);
 		}
-	}
-
-	loadCompanies = () => {
-		
-	}
+	};
 
 	render() {
 		const { companies } = this.props;
+		const sectors = this.props.sectors.data;
 
 		return (
 			<React.Fragment>
@@ -45,17 +53,17 @@ class Home extends Component<Props> {
 						<h1 className="text-white text-center">
 							Suche nach einem Unternehmen in Deiner Stadt!
 						</h1>
-						<div className="mt-5">
+						<div className="mt-5 w-100">
 							{/* <Form.Group controlId="123"> */}
-							<InputGroup>
-								<Form.Control type="text" style={{ height: '40px', fontSize: '1.2rem'}} placeholder="z.B. Lebensmittelgeschäft" onKeyDown={this.onKeyDown} />
-								<InputGroup.Append>
-									<InputGroup.Text
-										style={{ backgroundColor: '#fff', borderLeft: '0px' }}
-									>
-										<Icons.Search />
-									</InputGroup.Text>
-								</InputGroup.Append>
+							<InputGroup className="jumbatron--search">
+								<AutoCompleteInput
+									suggestions={sectors.map((sector) => sector.name)}
+									type="text"
+									style={{ height: '40px', fontSize: '1.2rem' }}
+									placeholder="z.B. Lebensmittelgeschäft"
+									onChange={this.onChangeSearch}
+									onKeyDown={this.onSearchKeyDown}
+								/>
 							</InputGroup>
 							{/* </Form.Group> */}
 						</div>
@@ -63,15 +71,18 @@ class Home extends Component<Props> {
 				</Jumbotron>
 				<BreadCrumb />
 				<Container className="mt-3 mb-3">
-						<span className="home--description-heading"> #SaveYourLocalBusiness </span>
-						<p className="home--description-text">
-							Kaufe Gutscheine von lokalen Unternehmen, 
-							die Du nach Wiederöffnung einlösen kannst. Dadurch erhält das Geschäft jetzt 
-							dringend benötigte Unterstützung und kann die schwere Zeit ohne Einnahmen mit Deiner Hilfe überbrücken!
-						</p>
+					<span className="home--description-heading">
+						{' '}
+						<span className="home--description-heading-hashtag">#</span>
+						SaveYourLocalBusiness{' '}
+					</span>
+					<p className="home--description-text">
+						Kaufe Gutscheine von lokalen Unternehmen, die Du nach Wiederöffnung einlösen
+						kannst. Dadurch erhält das Geschäft jetzt dringend benötigte Unterstützung
+						und kann die schwere Zeit ohne Einnahmen mit Deiner Hilfe überbrücken!
+					</p>
 				</Container>
 				<Container>
-					
 					<AddCompany />
 
 					{companies.data.length > 0 &&

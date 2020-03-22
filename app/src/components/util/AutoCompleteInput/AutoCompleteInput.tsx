@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, RefObject, createRef } from 'react';
 import { Form } from 'react-bootstrap';
 
 import './auto-complete-input.scss';
@@ -29,7 +29,7 @@ class AutoCompleteInput extends Component<Props, State> {
 	}
 
 	// Fired when the input value changes
-	onChange = (e: React.FormEvent<HTMLInputElement>) => {
+	onChangeValue = (e: React.FormEvent<HTMLInputElement>) => {
 		const { suggestions } = this.props;
 		const userInput = e.currentTarget.value;
 
@@ -44,6 +44,8 @@ class AutoCompleteInput extends Component<Props, State> {
 			showSuggestions: true,
 			userInput: e.currentTarget.value
 		});
+
+		this.props.onChange(e);
 	};
 
 	// Event fired when the user clicks on a suggestion
@@ -56,6 +58,8 @@ class AutoCompleteInput extends Component<Props, State> {
 			showSuggestions: false,
 			userInput: e.currentTarget.innerText
 		});
+
+		this.props.onChange(e);
 	};
 
 	// Event fired when the user presses a key down
@@ -69,6 +73,9 @@ class AutoCompleteInput extends Component<Props, State> {
 				showSuggestions: false,
 				userInput: filteredSuggestions[activeSuggestion]
 			});
+
+			this.props.onChange(e);
+			this.props.onKeyDown(e);
 
 			// Prevent form submit
 			e.preventDefault();
@@ -95,7 +102,7 @@ class AutoCompleteInput extends Component<Props, State> {
 
 	render() {
 		const { activeSuggestion, filteredSuggestions, showSuggestions, userInput } = this.state;
-		const { suggestions, children, ...rest } = this.props;
+		const { suggestions, children, onChange, value, ...rest } = this.props;
 
 		let suggestionsListComponent;
 
@@ -133,7 +140,7 @@ class AutoCompleteInput extends Component<Props, State> {
 				<Form.Control
 					className="auto-complete-input"
 					type="text"
-					onChange={this.onChange}
+					onChange={this.onChangeValue}
 					onKeyDown={this.onKeyDown}
 					value={userInput}
 					{...rest}
