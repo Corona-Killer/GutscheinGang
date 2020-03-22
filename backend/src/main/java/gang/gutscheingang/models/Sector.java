@@ -35,4 +35,9 @@ public class Sector {
     public boolean isValid() {
         return name != null && name.length() > 0;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

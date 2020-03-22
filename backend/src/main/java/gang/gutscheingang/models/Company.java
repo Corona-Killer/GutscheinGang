@@ -2,6 +2,7 @@ package gang.gutscheingang.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.jpa.spi.IdentifierGeneratorStrategyProvider;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -93,6 +94,7 @@ public class Company {
         this.street = company.street;
         this.postalCode = company.postalCode;
         this.city = company.city;
+        this.setTags();
     }
 
     public void setSector(Sector sector) {
@@ -169,5 +171,15 @@ public class Company {
 
     public String getCity() {
         return city;
+    }
+
+    public void setTags() {
+        if (tags == null) tags = new ArrayList<>();
+        tags.clear();
+        tags.add(name);
+        tags.add(description);
+        tags.add(sector.toString());
+        tags.add(String.valueOf(postalCode));
+        tags.add(city);
     }
 }

@@ -56,13 +56,22 @@ public class CompanyController {
         }
 
         company.setSector(sector);
-
+        company.setTags();
         return companyRepository.save(company);
     }
 
     @GetMapping(produces = "application/json")
-    public List<Company> getCompanies(@RequestParam(defaultValue="0") int pagenumber, @RequestParam(defaultValue="10") int pagesize) {
-        return companyRepository.findAll(PageRequest.of(pagenumber,pagesize));
+    public List<Company> getCompanies(
+            @RequestParam(defaultValue="0") int pagenumber,
+            @RequestParam(defaultValue="10") int pagesize,
+            @RequestParam(required = false) String query
+    ) {
+        if (query == null || query == "") {
+            List<Company> companies = companyRepository.findAll(PageRequest.of(pagenumber,pagesize));
+            return companies;
+        } else {
+            return companyRepository.findAllByTags(query, PageRequest.of(pagenumber, pagesize));
+        }
     }
 
     @GetMapping(value = "/{uuid}/voucher", produces = "application/json")

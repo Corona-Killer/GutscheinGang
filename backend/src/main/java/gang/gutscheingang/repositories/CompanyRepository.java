@@ -16,5 +16,8 @@ public interface CompanyRepository extends CrudRepository<Company, UUID> {
     public Company findByUuid(UUID uuid);
 
     List<Company> findAll(Pageable pageable);
+    public List<Company> findAllByTags(String tag, Pageable pageable);
+
+
 
 }
