@@ -53,9 +53,9 @@ class Home extends Component<Props, State> {
 						<h1 className="text-white text-center">
 							Suche nach einem Unternehmen in Deiner Stadt!
 						</h1>
-						<div className="mt-5">
+						<div className="mt-5 w-100">
 							{/* <Form.Group controlId="123"> */}
-							<InputGroup>
+							<InputGroup className="jumbatron--search">
 								<AutoCompleteInput
 									suggestions={sectors.map((sector) => sector.name)}
 									type="text"
@@ -64,14 +64,6 @@ class Home extends Component<Props, State> {
 									onChange={this.onChangeSearch}
 									onKeyDown={this.onSearchKeyDown}
 								/>
-								{/* <Form.Control type="text" style={{ height: '40px', fontSize: '1.2rem'}} placeholder="z.B. Lebensmittelgeschäft" onKeyDown={this.onKeyDown} /> */}
-								<InputGroup.Append>
-									<InputGroup.Text
-										style={{ backgroundColor: '#fff', borderLeft: '0px' }}
-									>
-										<Icons.Search />
-									</InputGroup.Text>
-								</InputGroup.Append>
 							</InputGroup>
 							{/* </Form.Group> */}
 						</div>
