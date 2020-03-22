@@ -8,6 +8,7 @@ import { CompaniesState } from '../../store/models/companies/reducer';
 import { connect } from 'react-redux';
 
 import '../../styles/jumbotron.scss';
+import '../../styles/home.scss';
 import AddCompany from '../modals/companies/AddCompany';
 
 interface Props {
@@ -27,7 +28,7 @@ class Home extends Component<Props> {
 				<Jumbotron className="jumbotron-background mb-0">
 					<Container className="mt-5">
 						<h1 className="text-white text-center">
-							Suche nach einem Geschäft in Deiner Stadt!
+							Suche nach einem Unternehmen in Deiner Stadt!
 						</h1>
 						<div className="mt-5">
 							{/* <Form.Group controlId="123"> */}
@@ -46,7 +47,16 @@ class Home extends Component<Props> {
 					</Container>
 				</Jumbotron>
 				<BreadCrumb />
+				<Container className="mt-3 mb-3">
+						<span className="home--description-heading"> #SaveYourLocalBusiness </span>
+						<p className="home--description-text">
+							Kaufe Gutscheine von lokalen Unternehmen, 
+							die Du nach Wiederöffnung einlösen kannst. Dadurch erhält das Geschäft jetzt 
+							dringend benötigte Unterstützung und kann die schwere Zeit ohne Einnahmen mit Deiner Hilfe überbrücken!
+						</p>
+				</Container>
 				<Container>
+					
 					<AddCompany />
 
 					{companies.data.length > 0 &&

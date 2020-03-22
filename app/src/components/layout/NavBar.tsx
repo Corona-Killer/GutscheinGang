@@ -55,26 +55,11 @@ class NavBar extends Component<Props, State> {
 										Meine Gutscheine
 									</span>
 								</NavItem>
-								<NavDropdown title="About" id="about-dropdown">
-									<NavDropdownItem to="/about-us" onClick={this.closeNav}>
-										About Us
-									</NavDropdownItem>
-									<NavDropdownItem
-										to="/about-the-project"
-										onClick={this.closeNav}
-									>
-										About the Project
-									</NavDropdownItem>
-									<NavDropdownItem to="/faq" onClick={this.closeNav}>
-										FAQ
-									</NavDropdownItem>
-								</NavDropdown>
-								<NavDropdown title="Profile" id="profile-dropdown">
-									<NavDropdownItem to="/lorem">Logout</NavDropdownItem>
-									<NavDropdownItem to="/lorem">Logout</NavDropdownItem>
-									<NavDropdownItem to="/lorem">Logout</NavDropdownItem>
-									<NavDropdownItem to="/lorem">Logout</NavDropdownItem>
-								</NavDropdown>
+								<NavItem to="/about-us">
+									<span>
+										Über Uns
+									</span>
+								</NavItem>
 							</Nav>
 						</Navbar.Collapse>
 					</Container>
