@@ -1,0 +1,72 @@
+.company--card {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 200px 1fr max-content;
+	column-gap: 30px;
+	margin-bottom: 25px;
+}
+
+.company--card-text {
+	padding: 20px;
+}
+
+.company--card-image {
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	border-top-left-radius: 0.25rem;
+	border-bottom-left-radius: 0.25rem;
+}
+.company--card-buy-button {
+	display: block;
+	margin-top: auto;
+	padding: 0 20px 20px 0;
+}
+
+.mt-36 {
+	margin-top: 36px;
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1000px) {
+	.company--card {
+		grid-template-columns: 200px 1fr;
+		grid-template-rows: max-content max-content;
+		column-gap: 30px;
+		row-gap: 0;
+	}
+
+	.company--card-image {
+		grid-column: 1;
+
+		grid-row: 1 / span 2;
+	}
+
+	.company--card-buy-button {
+		grid-column: 2;
+		grid-row: 2 / span 1;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.company--card {
+		grid-template-columns: 1fr;
+		grid-template-rows: 120px max-content max-content;
+		row-gap: 30px;
+	}
+
+	.company--card-image {
+		grid-column: 1;
+
+		grid-row: 1;
+	}
+
+	.company--card-buy-button {
+		grid-column: 1;
+		grid-row: 3;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
