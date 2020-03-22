@@ -2,7 +2,7 @@ import { Sector } from '../sectors';
 import { Voucher } from '../vouchers';
 
 export interface Company {
-  uuid: string;
+  uuid?: string;
   name: string;
   description?: string;
   sector?: Sector;

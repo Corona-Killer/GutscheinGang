@@ -3,6 +3,8 @@ import { Company } from './index';
 import * as reducer from './reducer';
 import { AxiosResponse } from 'axios';
 import api from '../../api';
+import { mapErrorToReduxError } from '../../../components/util/error';
+import { ReduxError } from '../../error';
 
 export const getAllCompanies = () => async (dispatch: Dispatch<AnyAction>) => {
   dispatch(reducer.getSetLoading());
@@ -18,12 +20,14 @@ export const getAllCompanies = () => async (dispatch: Dispatch<AnyAction>) => {
 };
 
 export const createCompany = (company: Company) => async (dispatch: Dispatch<AnyAction>) => {
-  dispatch(reducer.getSetLoading());
+  dispatch(reducer.addSetLoading());
 
   try {
     const { data }: AxiosResponse = await api.post('/company', company);
-    return getAllCompanies();
+
+    return dispatch(reducer.companyCreated(data as Company));
   } catch (error) {
-    return dispatch(reducer.getSetErrors({ general: { message: error.message } }));
+    let errorObject: ReduxError = mapErrorToReduxError(error);
+    return dispatch(reducer.addSetErrors(errorObject));
   }
 };

@@ -52,5 +52,5 @@ const slice = createSlice({
   }
 });
 
-export const { companiesReceived, getSetLoading, getSetErrors } = slice.actions;
+export const { companiesReceived, getSetLoading, getSetErrors, companyCreated, addSetLoading, addSetErrors } = slice.actions;
 export default slice.reducer;
