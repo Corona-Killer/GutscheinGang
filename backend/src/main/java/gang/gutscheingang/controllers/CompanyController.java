@@ -5,22 +5,24 @@ import gang.gutscheingang.models.Sector;
 import gang.gutscheingang.models.Voucher;
 import gang.gutscheingang.repositories.CompanyRepository;
 import gang.gutscheingang.repositories.SectorRepository;
-import gang.gutscheingang.validators.CompanyValidator;
-import gang.gutscheingang.validators.SectorValidator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("company")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@Tag(name="Companies")
+@Tag(name = "Companies")
 public class CompanyController {
 
     private CompanyRepository companyRepository;
@@ -34,31 +36,42 @@ public class CompanyController {
 
     /**
      * Creates a new Company
+     *
      * @param company the company to create
      * @return the created company
      */
     @PostMapping(produces = "application/json")
-    public Company createCompany(@RequestBody Company company) {
-        if(!CompanyValidator.validate(company))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+    public Company createCompany(@RequestBody @Valid Company company) {
 
         Sector sector;
-        try {
-            sector = sectorRepository.findByUuid(company.getSector().getUuid());
-        } catch (Exception ex) {
-            if(!SectorValidator.validate(company.getSector()))
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
-            sector = sectorRepository.save(company.getSector());
-        }
-        company.setSector(sector);
 
-        return companyRepository.save(company);
+            sector = sectorRepository.findByNameIgnoreCase(company.getSector().getName());
+
+            // if not found add
+            if (sector == null) {
+
+                sector = sectorRepository.save(company.getSector());
+
+            }
+
+            company.setSector(sector);
+            company.setTags();
+            return companyRepository.save(company);
+
     }
 
     @GetMapping(produces = "application/json")
-    public List<Company> getCompanies() {
-        return companyRepository.findAll();
+    public List<Company> getCompanies(
+            @RequestParam(defaultValue = "0") int pagenumber,
+            @RequestParam(defaultValue = "10") int pagesize,
+            @RequestParam(required = false) String query
+    ) {
+        if (query == null || query.equals("")) {
+            return companyRepository.findAll(PageRequest.of(pagenumber, pagesize));
+        } else {
+            return companyRepository.findAllByTags(query, PageRequest.of(pagenumber, pagesize));
+        }
     }
 
     @GetMapping(value = "/{uuid}/voucher", produces = "application/json")
@@ -72,7 +85,7 @@ public class CompanyController {
     }
 
     @PutMapping(value = "/{uuid}", produces = "application/json")
-    public Company updateCompany(@PathVariable UUID uuid, @RequestBody Company company) {
+    public Company updateCompany(@PathVariable UUID uuid, @RequestBody @Valid Company company) {
         return companyRepository.findById(uuid)
                 .map(
                         foundCompany -> {

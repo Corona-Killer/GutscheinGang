@@ -2,14 +2,12 @@ package gang.gutscheingang.controllers;
 
 import gang.gutscheingang.models.Voucher;
 import gang.gutscheingang.repositories.VoucherRepository;
-import gang.gutscheingang.validators.UserValidator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController

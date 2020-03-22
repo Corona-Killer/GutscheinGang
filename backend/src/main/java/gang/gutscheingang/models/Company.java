@@ -2,8 +2,11 @@ package gang.gutscheingang.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.jpa.spi.IdentifierGeneratorStrategyProvider;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.net.URL;
 import java.util.*;
 
@@ -18,11 +21,17 @@ public class Company {
     )
     private UUID uuid;
 
+    @NotNull
+    @Size(min = 1)
     private String name;
 
+    @NotNull
+    @Size(min = 1)
     private String description;
 
     @ManyToOne
+    @NotNull
+    @Valid
     private Sector sector;
 
     private URL logoUrl;
@@ -50,16 +59,25 @@ public class Company {
 
     @OneToMany
     @JsonIgnore
+    @Null
     private List<Voucher> voucherList;
 
     private String needHelpBecause;
 
+    @NotNull
+    @Email
     private String paypalAddress;
 
+    @NotNull
+    @Size(min = 1)
     private String street;
 
+    @NotNull
+    @Min(10000)
     private int postalCode;
 
+    @NotNull
+    @Size(min = 1)
     private String city;
 
     public void updateWith(Company company) {
@@ -78,6 +96,7 @@ public class Company {
         this.street = company.street;
         this.postalCode = company.postalCode;
         this.city = company.city;
+        this.setTags();
     }
 
     public void setSector(Sector sector) {
@@ -154,5 +173,15 @@ public class Company {
 
     public String getCity() {
         return city;
+    }
+
+    public void setTags() {
+        if (tags == null) tags = new ArrayList<>();
+        tags.clear();
+        tags.add(name);
+        tags.add(description);
+        tags.add(sector.toString());
+        tags.add(String.valueOf(postalCode));
+        tags.add(city);
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("sector")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -23,7 +25,7 @@ public class SectorController {
     }
 
     @GetMapping(produces = "application/json")
-    public Iterable<Sector> getSectors() {
+    public List<Sector> getSectors() {
         return sectorRepository.findAll();
     }
 }
