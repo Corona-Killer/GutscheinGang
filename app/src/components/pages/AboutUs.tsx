@@ -11,8 +11,8 @@ class AboutUs extends Component {
 			<React.Fragment>
 				<BreadCrumb />
 				<Container className="mt-3 mb-3">
-					<img src={aboutUs} className="about--image"></img>
 					<span className="about--description-heading">AboutUs</span>
+					<img src={aboutUs} className="about--image"></img>
 					<p className="about--description-text">
 					Wir sind ein Team aus 8 Entwickler*innen, das sich über den 
 					<a target="_blank" href="https://wirvsvirushackathon.org/"><b> #WirVsVirus</b>-Hackathon </a> 
