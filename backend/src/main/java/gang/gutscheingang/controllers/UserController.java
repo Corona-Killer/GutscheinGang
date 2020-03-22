@@ -8,14 +8,13 @@ import gang.gutscheingang.models.VoucherBuyTransaction;
 import gang.gutscheingang.repositories.CompanyRepository;
 import gang.gutscheingang.repositories.UserRepository;
 import gang.gutscheingang.repositories.VoucherRepository;
-import gang.gutscheingang.validators.CompanyValidator;
-import gang.gutscheingang.validators.UserValidator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,15 +36,13 @@ public class UserController {
     }
 
     @PostMapping(produces = "application/json")
-    public SystemUser createUser(@RequestBody SystemUser systemUser) {
-        if(!UserValidator.validate(systemUser))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+    public SystemUser createUser(@RequestBody @Valid SystemUser systemUser) {
 
         return userRepository.save(systemUser);
     }
 
     @PostMapping(value = "/{uuid}/voucher", produces = "application/json")
-    public Voucher buyVoucher(@PathVariable UUID uuid, @RequestBody VoucherBuyTransaction transaction) {
+    public Voucher buyVoucher(@PathVariable UUID uuid, @RequestBody @Valid VoucherBuyTransaction transaction) {
         SystemUser systemUser = userRepository.findById(uuid).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         Company company = companyRepository.findById(transaction.getCompanyUuid()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));;
         Voucher voucher = systemUser.buyVoucher(company, transaction.getValueInEurCt());
@@ -64,7 +61,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{uuid}", produces = "application/json")
-    public SystemUser updateUser(@PathVariable UUID uuid, @RequestBody SystemUser systemUser) {
+    public SystemUser updateUser(@PathVariable UUID uuid, @RequestBody @Valid SystemUser systemUser) {
         return userRepository.findById(uuid)
                 .map(
                         foundSystemUser -> {

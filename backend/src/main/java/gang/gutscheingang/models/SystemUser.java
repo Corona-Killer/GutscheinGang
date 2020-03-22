@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,16 +18,26 @@ public class SystemUser {
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     private UUID uuid;
+
+    @NotNull
+    @Email
     private String email;
 
     @OneToMany
+    @Null
     private List<Voucher> voucherList;
 
     @OneToMany
     @JsonIgnore
+    @Null
     private List<Company> companyList;
 
+    @NotNull
+    @Size(min = 1)
     private String firstName;
+
+    @NotNull
+    @Size(min = 1)
     private String lastName;
 
     private String jwtToken;
