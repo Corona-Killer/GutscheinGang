@@ -1,21 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Company } from './index';
-import { GetError } from './errors';
+import { GetError, AddError } from './errors';
 
 export interface CompaniesState {
   data: Company[];
   loading: {
     get: boolean;
+    add: boolean;
   };
   errors: {
     get: GetError | null;
+    add: AddError | null;
   };
 }
 
 const initialState: CompaniesState = {
   data: [],
-  loading: { get: false },
-  errors: { get: null }
+  loading: { get: false, add: false },
+  errors: { get: null, add: null }
 };
 
 const slice = createSlice({
@@ -33,6 +35,19 @@ const slice = createSlice({
     getSetErrors: (state: CompaniesState, action: PayloadAction<GetError>) => {
       state.loading.get = false;
       state.errors.get = action.payload;
+    },
+
+    companyCreated: (state: CompaniesState, action: PayloadAction<Company>) => {
+      state.loading.add = false;
+      state.errors.add = null;
+      state.data.push(action.payload);
+    },
+    addSetLoading: (state: CompaniesState) => {
+      state.loading.add = true;
+    },
+    addSetErrors: (state: CompaniesState, action: PayloadAction<AddError>) => {
+      state.loading.add = false;
+      state.errors.add = action.payload;
     }
   }
 });

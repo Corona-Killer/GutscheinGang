@@ -5,4 +5,5 @@ export interface Error {
 
 export interface ReduxError {
   general?: Error;
+  [x: string]: Error | undefined;
 }

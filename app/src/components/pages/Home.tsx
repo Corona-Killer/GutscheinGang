@@ -47,8 +47,8 @@ class Home extends Component<Props> {
 				</Jumbotron>
 				<BreadCrumb />
 				<Container>
-					<h2>Content</h2>
 					<AddCompany />
+
 					{companies.data.length > 0 &&
 						companies.data.map((company) => {
 							return <CompanyItem key={company.uuid} company={company} />;
