@@ -80,6 +80,7 @@ class AddCompany extends Component<Props, State> {
 	};
 	onChangeSector = (e: React.FormEvent<HTMLInputElement>) => {
 		this.setState({ sectorValue: e.currentTarget.value });
+		console.log(this.state.sectorValue);
 	};
 
 	handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

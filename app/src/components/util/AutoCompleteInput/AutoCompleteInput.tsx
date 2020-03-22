@@ -75,6 +75,7 @@ class AutoCompleteInput extends Component<Props, State> {
 			});
 
 			this.props.onChange(e);
+			this.props.onKeyDown(e);
 
 			// Prevent form submit
 			e.preventDefault();
