@@ -61,8 +61,8 @@ public class CompanyController {
     }
 
     @GetMapping(produces = "application/json")
-    public List<Company> getCompanies(@RequestParam(defaultValue="0") int start, @RequestParam(defaultValue="10") int end) {
-        return companyRepository.findAll(PageRequest.of(start,end));
+    public List<Company> getCompanies(@RequestParam(defaultValue="0") int pagenumber, @RequestParam(defaultValue="10") int pagesize) {
+        return companyRepository.findAll(PageRequest.of(pagenumber,pagesize));
     }
 
     @GetMapping(value = "/{uuid}/voucher", produces = "application/json")
