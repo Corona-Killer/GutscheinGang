@@ -57,7 +57,7 @@ class NavBar extends Component<Props, State> {
 								</NavItem>
 								<NavItem to="/about-us">
 									<span>
-										Über Uns
+										#AboutUs
 									</span>
 								</NavItem>
 							</Nav>

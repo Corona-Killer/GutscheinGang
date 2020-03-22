@@ -63,7 +63,7 @@ class Home extends Component<Props> {
 				</Jumbotron>
 				<BreadCrumb />
 				<Container className="mt-3 mb-3">
-						<span className="home--description-heading"> #SaveYourLocalBusiness </span>
+						<span className="home--description-heading"> <span className="home--description-heading-hashtag">#</span>SaveYourLocalBusiness </span>
 						<p className="home--description-text">
 							Kaufe Gutscheine von lokalen Unternehmen, 
 							die Du nach Wiederöffnung einlösen kannst. Dadurch erhält das Geschäft jetzt 

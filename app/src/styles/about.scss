@@ -19,3 +19,23 @@
     margin: auto;
     margin-bottom: 30px;
 }
+
+.about--people-grid {
+    display: grid;
+    grid-template-columns: repeat(8, max-content);
+    column-gap: 10px;
+    justify-content: center;
+
+}
+
+.about--people-link {
+    text-decoration: none;
+    color: unset;
+    padding-bottom: 5px;
+}
+
+
+.about--people-link:hover {
+    color: #ce4f55;
+    padding-bottom: 5px;
+}
