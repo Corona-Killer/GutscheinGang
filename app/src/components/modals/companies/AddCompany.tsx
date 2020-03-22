@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { Modal, Button, Form, Alert, Row, Col } from 'react-bootstrap';
 import AutoCompleteInput from '../../util/AutoCompleteInput/AutoCompleteInput';
+import { StoreState } from '../../../store';
+import { SectorsState } from '../../../store/models/sectors/reducer';
+import { connect } from 'react-redux';
 
-interface Props {}
+const mapStateToProps = (state: StoreState) => ({
+	sectors: state.sectors
+});
+
+interface Props {
+	sectors: SectorsState;
+}
 interface State {
 	modalOpen: boolean;
 }
-
-/**
- * FIELDS
- * name
- * sector
- * postal code - city
- * street
- * paypal address (email)
- */
 
 class AddCompany extends Component<Props, State> {
 	//SECTION React lifecycle
@@ -24,6 +24,8 @@ class AddCompany extends Component<Props, State> {
 		this.state = {
 			modalOpen: true
 		};
+
+		console.log();
 
 		// Bind refs
 		// TODO
@@ -74,7 +76,11 @@ class AddCompany extends Component<Props, State> {
 												Name<span className="text-danger">*</span>
 											</b>
 										</Form.Label>
-										<Form.Control type="text" max={255} />
+										<Form.Control
+											type="text"
+											max={255}
+											placeholder="z.B. Rewe"
+										/>
 									</Form.Group>
 								</Col>
 
@@ -89,18 +95,10 @@ class AddCompany extends Component<Props, State> {
 										{/* <Form.Control type="text" max={255} /> */}
 										<AutoCompleteInput
 											max={255}
-											suggestions={[
-												'Alligator',
-												'Bask',
-												'Crocodilian',
-												'Death Roll',
-												'Eggs',
-												'Jaws',
-												'Reptile',
-												'Solitary',
-												'Tail',
-												'Wetlands'
-											]}
+											suggestions={this.props.sectors.data.map(
+												(sector) => sector.name
+											)}
+											placeholder="z.B. Lebensmittelgeschäft"
 										/>
 									</Form.Group>
 								</Col>
@@ -114,7 +112,12 @@ class AddCompany extends Component<Props, State> {
 												Postleitzahl<span className="text-danger">*</span>
 											</b>
 										</Form.Label>
-										<Form.Control type="number" min={10000} max={99999} />
+										<Form.Control
+											type="number"
+											min={10000}
+											max={99999}
+											placeholder="z.B. 12345"
+										/>
 									</Form.Group>
 								</Col>
 								{/* City */}
@@ -125,7 +128,11 @@ class AddCompany extends Component<Props, State> {
 												Stadt<span className="text-danger">*</span>
 											</b>
 										</Form.Label>
-										<Form.Control type="text" max={255} />
+										<Form.Control
+											type="text"
+											max={255}
+											placeholder="z.B. Musterstadt"
+										/>
 									</Form.Group>
 								</Col>
 								{/* Street */}
@@ -136,7 +143,11 @@ class AddCompany extends Component<Props, State> {
 												Straße. Nr.<span className="text-danger">*</span>
 											</b>
 										</Form.Label>
-										<Form.Control type="text" max={255} />
+										<Form.Control
+											type="text"
+											max={255}
+											placeholder="z.B. Musterstraße 123"
+										/>
 									</Form.Group>
 								</Col>
 							</Row>
@@ -150,7 +161,11 @@ class AddCompany extends Component<Props, State> {
 												<span className="text-danger">*</span>
 											</b>
 										</Form.Label>
-										<Form.Control type="text" max={255} />
+										<Form.Control
+											type="text"
+											max={255}
+											placeholder="z.B. max.mustermann@domain.com"
+										/>
 									</Form.Group>
 								</Col>
 							</Row>
@@ -170,4 +185,4 @@ class AddCompany extends Component<Props, State> {
 	}
 }
 
-export default AddCompany;
+export default connect(mapStateToProps)(AddCompany);
