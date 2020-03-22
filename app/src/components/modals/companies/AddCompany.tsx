@@ -29,6 +29,11 @@ interface State {
 	descriptionLength: number;
 }
 
+const initState: State = {
+	modalOpen: true,
+	descriptionLength: 0
+};
+
 class AddCompany extends Component<Props, State> {
 	nameRef: RefObject<any>;
 	descriptionRef: RefObject<any>;
@@ -42,12 +47,7 @@ class AddCompany extends Component<Props, State> {
 
 	constructor(props: Props) {
 		super(props);
-		this.state = {
-			modalOpen: true,
-			descriptionLength: 0
-		};
-
-		console.log();
+		this.state = initState;
 
 		// Bind refs
 		// TODO
@@ -120,7 +120,6 @@ class AddCompany extends Component<Props, State> {
 							{errors.add?.general && (
 								<Alert variant="danger">{errors.add.general.message}</Alert>
 							)}
-							{/*<Alert variant="danger">ERROR: Some error message...</Alert>*/}
 
 							<Row>
 								{/* Name */}
