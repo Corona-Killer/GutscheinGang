@@ -2,17 +2,18 @@ import React, { lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import { Dots } from 'react-preloaders';
+import { ToastContainer, toast } from 'react-toastify';
 // redux
 import { Provider } from 'react-redux';
 import store from './store';
+import { getSectors } from './store/models/sectors/actions';
+import { getAllCompanies } from './store/models/companies/actions';
 
 import 'bootstrap/scss/bootstrap.scss';
+import 'react-toastify/dist/ReactToastify.css';
 import './styles/main.scss';
 import './styles/dropdown.scss';
 import './styles/companies.scss';
-import { getSectors } from './store/models/sectors/actions';
-import { getAllCompanies } from './store/models/companies/actions';
-import { mapErrorResponseToErrorObject, ErrorResponse } from './components/util/error';
 
 const App = lazy(() => import('./App'));
 
@@ -23,6 +24,7 @@ ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<Suspense fallback={<Dots customLoading={true} />}>
+				<ToastContainer position="bottom-center" autoClose={3000} draggable={true} />
 				<App />
 			</Suspense>
 		</Provider>

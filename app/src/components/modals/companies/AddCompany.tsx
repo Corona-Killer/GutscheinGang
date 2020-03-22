@@ -8,6 +8,7 @@ import { Company } from '../../../store/models/companies';
 import { createCompany } from '../../../store/models/companies/actions';
 import { CompaniesState } from '../../../store/models/companies/reducer';
 import ButtonSpinner from '../../common/ButtonSpinner';
+import { toast } from 'react-toastify';
 
 const MAX_DESCRIPTION_LENGTH = 2000;
 
@@ -27,17 +28,18 @@ interface Props {
 interface State {
 	modalOpen: boolean;
 	descriptionLength: number;
+	sectorValue: string;
 }
 
 const initState: State = {
-	modalOpen: true,
-	descriptionLength: 0
+	modalOpen: false,
+	descriptionLength: 0,
+	sectorValue: ''
 };
 
 class AddCompany extends Component<Props, State> {
 	nameRef: RefObject<any>;
 	descriptionRef: RefObject<any>;
-	sectorRef: RefObject<any>;
 	postalCodeRef: RefObject<any>;
 	cityRef: RefObject<any>;
 	streetRef: RefObject<any>;
@@ -53,7 +55,6 @@ class AddCompany extends Component<Props, State> {
 		// TODO
 		this.nameRef = createRef();
 		this.descriptionRef = createRef();
-		this.sectorRef = createRef();
 		this.postalCodeRef = createRef();
 		this.cityRef = createRef();
 		this.streetRef = createRef();
@@ -73,9 +74,12 @@ class AddCompany extends Component<Props, State> {
 
 	//!SECTION
 
-	onChange = (e: React.FormEvent<HTMLTextAreaElement>) => {
+	onChangeDescription = (e: React.FormEvent<HTMLTextAreaElement>) => {
 		const descriptionLength = this.descriptionRef.current?.value.length;
 		this.setState({ descriptionLength });
+	};
+	onChangeSector = (e: React.FormEvent<HTMLInputElement>) => {
+		this.setState({ sectorValue: e.currentTarget.value });
 	};
 
 	handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -84,7 +88,7 @@ class AddCompany extends Component<Props, State> {
 		const newCompany: Company = {
 			name: this.nameRef.current?.value,
 			sector: {
-				name: this.sectorRef.current?.value
+				name: this.state.sectorValue
 			},
 			postalCode: this.postalCodeRef.current?.value,
 			city: this.cityRef.current?.value,
@@ -94,6 +98,11 @@ class AddCompany extends Component<Props, State> {
 		};
 
 		this.props.createCompany(newCompany);
+
+		if (!this.props.companies.loading.add && !this.props.companies.errors.add) {
+			toast('Ihr Unternehmen wurde hinzugefügt.', { type: 'success' });
+			this.setState({ modalOpen: false });
+		}
 	};
 
 	render() {
@@ -172,7 +181,7 @@ class AddCompany extends Component<Props, State> {
 												errors.add?.description.message !== ''
 											}
 											isValid={errors.add! && !errors.add?.description}
-											onChange={this.onChange}
+											onChange={this.onChangeDescription}
 										/>
 										<span
 											className={`small d-block ${
@@ -208,7 +217,8 @@ class AddCompany extends Component<Props, State> {
 											suggestions={sectors.map((sector) => sector.name)}
 											placeholder="z.B. Lebensmittelgeschäft"
 											required
-											ref={this.sectorRef}
+											value={this.state.sectorValue}
+											onChange={this.onChangeSector}
 											readOnly={loading.add}
 											isInvalid={
 												errors.add?.sector &&

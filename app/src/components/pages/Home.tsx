@@ -11,32 +11,36 @@ import '../../styles/jumbotron.scss';
 import '../../styles/home.scss';
 import AddCompany from '../modals/companies/AddCompany';
 import { SectorsState } from '../../store/models/sectors/reducer';
+import AutoCompleteInput from '../util/AutoCompleteInput/AutoCompleteInput';
+
+const mapStateToProps = (state: StoreState) => ({
+	companies: state.companies,
+	sectors: state.sectors
+});
 
 interface Props {
 	companies: CompaniesState;
 	sectors: SectorsState;
 }
 
-const mapStateToProps = (state: StoreState) => ({
-	companies: state.companies,
-	sectors: state.sectors
-
-});
-
 class Home extends Component<Props> {
+	// onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+	// 	if (e.key == 'Enter') {
 
-	onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key == 'Enter') {
+	// 	}
+	// }
 
-		}
-	}
+	// loadCompanies = () => {
 
-	loadCompanies = () => {
-		
-	}
+	// }
+
+	onChangeSearch = (e: React.FormEvent<HTMLInputElement>) => {
+		//
+	};
 
 	render() {
 		const { companies } = this.props;
+		const sectors = this.props.sectors.data;
 
 		return (
 			<React.Fragment>
@@ -48,7 +52,14 @@ class Home extends Component<Props> {
 						<div className="mt-5">
 							{/* <Form.Group controlId="123"> */}
 							<InputGroup>
-								<Form.Control type="text" style={{ height: '40px', fontSize: '1.2rem'}} placeholder="z.B. Lebensmittelgeschäft" onKeyDown={this.onKeyDown} />
+								<AutoCompleteInput
+									suggestions={sectors.map((sector) => sector.name)}
+									type="text"
+									style={{ height: '40px', fontSize: '1.2rem' }}
+									placeholder="z.B. Lebensmittelgeschäft"
+									onChange={this.onChangeSearch}
+								/>
+								{/* <Form.Control type="text" style={{ height: '40px', fontSize: '1.2rem'}} placeholder="z.B. Lebensmittelgeschäft" onKeyDown={this.onKeyDown} /> */}
 								<InputGroup.Append>
 									<InputGroup.Text
 										style={{ backgroundColor: '#fff', borderLeft: '0px' }}
@@ -63,15 +74,18 @@ class Home extends Component<Props> {
 				</Jumbotron>
 				<BreadCrumb />
 				<Container className="mt-3 mb-3">
-						<span className="home--description-heading"> <span className="home--description-heading-hashtag">#</span>SaveYourLocalBusiness </span>
-						<p className="home--description-text">
-							Kaufe Gutscheine von lokalen Unternehmen, 
-							die Du nach Wiederöffnung einlösen kannst. Dadurch erhält das Geschäft jetzt 
-							dringend benötigte Unterstützung und kann die schwere Zeit ohne Einnahmen mit Deiner Hilfe überbrücken!
-						</p>
+					<span className="home--description-heading">
+						{' '}
+						<span className="home--description-heading-hashtag">#</span>
+						SaveYourLocalBusiness{' '}
+					</span>
+					<p className="home--description-text">
+						Kaufe Gutscheine von lokalen Unternehmen, die Du nach Wiederöffnung einlösen
+						kannst. Dadurch erhält das Geschäft jetzt dringend benötigte Unterstützung
+						und kann die schwere Zeit ohne Einnahmen mit Deiner Hilfe überbrücken!
+					</p>
 				</Container>
 				<Container>
-					
 					<AddCompany />
 
 					{companies.data.length > 0 &&
