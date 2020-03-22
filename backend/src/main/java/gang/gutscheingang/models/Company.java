@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.jpa.spi.IdentifierGeneratorStrategyProvider;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.net.URL;
 import java.util.*;
@@ -30,6 +31,7 @@ public class Company {
 
     @ManyToOne
     @NotNull
+    @Valid
     private Sector sector;
 
     private URL logoUrl;

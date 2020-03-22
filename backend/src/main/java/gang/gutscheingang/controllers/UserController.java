@@ -8,8 +8,6 @@ import gang.gutscheingang.models.VoucherBuyTransaction;
 import gang.gutscheingang.repositories.CompanyRepository;
 import gang.gutscheingang.repositories.UserRepository;
 import gang.gutscheingang.repositories.VoucherRepository;
-import gang.gutscheingang.validators.CompanyValidator;
-import gang.gutscheingang.validators.UserValidator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,8 +37,6 @@ public class UserController {
 
     @PostMapping(produces = "application/json")
     public SystemUser createUser(@RequestBody @Valid SystemUser systemUser) {
-        if(!UserValidator.validate(systemUser))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 
         return userRepository.save(systemUser);
     }
