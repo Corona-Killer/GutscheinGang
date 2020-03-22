@@ -6,6 +6,10 @@
     display: block;
     text-align: center;
 }
+.about--description-heading::before {
+    content: "#";
+    font-family: 'Liu Jian Mao Cao', cursive;
+}
 
 .about--description-text {
     text-align: center;
@@ -38,4 +42,11 @@
 .about--people-link:hover {
     color: #ce4f55;
     padding-bottom: 5px;
+}
+
+.about--github-repo {
+    display: grid;
+    justify-content: center;
+    padding: 30px;
+
 }

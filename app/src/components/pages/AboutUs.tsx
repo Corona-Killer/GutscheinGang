@@ -12,7 +12,7 @@ class AboutUs extends Component {
 				<BreadCrumb />
 				<Container className="mt-3 mb-3">
 					<img src={aboutUs} className="about--image"></img>
-					<span className="about--description-heading"> <span className="home--description-heading-hashtag">#</span>AboutUs</span>
+					<span className="about--description-heading">AboutUs</span>
 					<p className="about--description-text">
 					Wir sind ein Team aus 8 Entwickler*innen, das sich über den 
 					<a target="_blank" href="https://wirvsvirushackathon.org/"><b> #WirVsVirus</b>-Hackathon </a> 
@@ -31,6 +31,11 @@ class AboutUs extends Component {
 							<div>👨‍💻 <a className="about--people-link" href="https://github.com/TheWoozyDude">Stefan</a> und </div> 
 							<div>👨‍💻 <a className="about--people-link" href="https://github.com/tobiaswaelde">Tobias</a></div>
 					</div>
+				</Container>
+				<Container className="about--github-repo">
+				<span className="about--description-heading">Github</span>
+
+				<a href="https://github.com/Corona-Killer/GutscheinGang"><img alt = "https://github.com/Corona-Killer/GutscheinGang" src="https://github-link-card.s3.ap-northeast-1.amazonaws.com/Corona-Killer/GutscheinGang.png" width="460px" /></a> 
 				</Container>
 			</React.Fragment>
 		);
