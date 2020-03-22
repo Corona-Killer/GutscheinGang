@@ -8,6 +8,7 @@ import { Company } from '../../../store/models/companies';
 import { createCompany } from '../../../store/models/companies/actions';
 import { CompaniesState } from '../../../store/models/companies/reducer';
 import ButtonSpinner from '../../common/ButtonSpinner';
+import { toast } from 'react-toastify';
 
 const MAX_DESCRIPTION_LENGTH = 2000;
 
@@ -31,7 +32,7 @@ interface State {
 }
 
 const initState: State = {
-	modalOpen: true,
+	modalOpen: false,
 	descriptionLength: 0,
 	sectorValue: ''
 };
@@ -97,6 +98,11 @@ class AddCompany extends Component<Props, State> {
 		};
 
 		this.props.createCompany(newCompany);
+
+		if (!this.props.companies.loading.add && !this.props.companies.errors.add) {
+			toast('Ihr Unternehmen wurde hinzugefügt.', { type: 'success' });
+			this.setState({ modalOpen: false });
+		}
 	};
 
 	render() {
