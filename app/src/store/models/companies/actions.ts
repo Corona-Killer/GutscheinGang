@@ -23,7 +23,6 @@ export const createCompany = (company: Company) => async (dispatch: Dispatch<Any
   dispatch(reducer.addSetLoading());
 
   try {
-    console.log(company);
     const { data }: AxiosResponse = await api.post('/company', company);
 
     return dispatch(reducer.companyCreated(data as Company));
