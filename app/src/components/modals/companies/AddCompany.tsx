@@ -22,7 +22,7 @@ class AddCompany extends Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			modalOpen: true
+			modalOpen: false
 		};
 
 		console.log();
@@ -65,7 +65,7 @@ class AddCompany extends Component<Props, State> {
 					</Modal.Header>
 					<Form autoComplete="off" onSubmit={this.handleSubmit}>
 						<Modal.Body>
-							<Alert variant="danger">ERROR: Some error message...</Alert>
+							{/*<Alert variant="danger">ERROR: Some error message...</Alert>*/}
 
 							<Row>
 								{/* Name */}

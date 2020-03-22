@@ -16,3 +16,14 @@ export const getAllCompanies = () => async (dispatch: Dispatch<AnyAction>) => {
     return dispatch(reducer.getSetErrors({ general: { message: error.message } }));
   }
 };
+
+export const createCompany = (company: Company) => async (dispatch: Dispatch<AnyAction>) => {
+  dispatch(reducer.getSetLoading());
+
+  try {
+    const { data }: AxiosResponse = await api.post('/company', company);
+    return getAllCompanies();
+  } catch (error) {
+    return dispatch(reducer.getSetErrors({ general: { message: error.message } }));
+  }
+};

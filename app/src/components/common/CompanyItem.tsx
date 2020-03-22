@@ -4,6 +4,7 @@ import { Card, Badge, Button } from 'react-bootstrap';
 import { Company } from '../../store/models/companies';
 import logoEmpty from '../../resources/images/empty-company-logo-2.jpg';
 import { url } from 'inspector';
+import AddVoucher from '../modals/users/AddVoucher';
 
 interface Props {
 	company: Company;
@@ -34,7 +35,7 @@ const CompanyItem: React.FC<Props> = (props: Props) => {
 				)}
 			</div>
 			<div className="company--card-buy-button">
-				<Button variant="primary">Gutschein kaufen</Button>
+				<AddVoucher />
 			</div>
 		</Card>
 	);
