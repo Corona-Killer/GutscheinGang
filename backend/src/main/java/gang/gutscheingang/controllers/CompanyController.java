@@ -9,6 +9,7 @@ import gang.gutscheingang.validators.CompanyValidator;
 import gang.gutscheingang.validators.SectorValidator;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -60,11 +61,8 @@ public class CompanyController {
     }
 
     @GetMapping(produces = "application/json")
-    public List<Company> getCompanies(@RequestParam int limit) {
-        if (limit == 0) {
-            return companyRepository.findAll();
-        }
-        return companyRepository.findAll();
+    public List<Company> getCompanies(@RequestParam(defaultValue="0") int start, @RequestParam(defaultValue="10") int end) {
+        return companyRepository.findAll(PageRequest.of(start,end));
     }
 
     @GetMapping(value = "/{uuid}/voucher", produces = "application/json")

@@ -1,6 +1,8 @@
 package gang.gutscheingang.repositories;
 
 import gang.gutscheingang.models.Company;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +15,6 @@ public interface CompanyRepository extends CrudRepository<Company, UUID> {
 
     public Company findByUuid(UUID uuid);
 
-    List<Company> findAll();
+    List<Company> findAll(Pageable pageable);
 
 }
