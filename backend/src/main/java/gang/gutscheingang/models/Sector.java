@@ -21,7 +21,7 @@ public class Sector {
 
     @Column(unique = true)
     @NotNull
-    @Size(min=5)
+    @Size(min=1)
     private String name;
 
     public UUID getUuid() {

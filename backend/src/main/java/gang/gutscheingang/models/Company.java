@@ -22,11 +22,11 @@ public class Company {
     private UUID uuid;
 
     @NotNull
-    @Size(min = 5)
+    @Size(min = 1)
     private String name;
 
     @NotNull
-    @Size(min = 5)
+    @Size(min = 1)
     private String description;
 
     @ManyToOne
