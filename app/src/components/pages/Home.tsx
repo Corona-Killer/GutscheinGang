@@ -12,6 +12,7 @@ import '../../styles/home.scss';
 import AddCompany from '../modals/companies/AddCompany';
 import { SectorsState } from '../../store/models/sectors/reducer';
 import AutoCompleteInput from '../util/AutoCompleteInput/AutoCompleteInput';
+import { Keys } from '../util/AutoCompleteInput/keys';
 
 const mapStateToProps = (state: StoreState) => ({
 	companies: state.companies,
@@ -22,20 +23,23 @@ interface Props {
 	companies: CompaniesState;
 	sectors: SectorsState;
 }
+interface State {
+	searchInput: string;
+}
 
-class Home extends Component<Props> {
-	// onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-	// 	if (e.key == 'Enter') {
+const initState: State = {
+	searchInput: ''
+};
 
-	// 	}
-	// }
-
-	// loadCompanies = () => {
-
-	// }
-
+class Home extends Component<Props, State> {
 	onChangeSearch = (e: React.FormEvent<HTMLInputElement>) => {
-		//
+		this.setState({ searchInput: e.currentTarget.value });
+	};
+
+	onSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.keyCode === Keys.ENTER) {
+			console.log('search', this.state.searchInput);
+		}
 	};
 
 	render() {
@@ -58,6 +62,7 @@ class Home extends Component<Props> {
 									style={{ height: '40px', fontSize: '1.2rem' }}
 									placeholder="z.B. Lebensmittelgeschäft"
 									onChange={this.onChangeSearch}
+									onKeyDown={this.onSearchKeyDown}
 								/>
 								{/* <Form.Control type="text" style={{ height: '40px', fontSize: '1.2rem'}} placeholder="z.B. Lebensmittelgeschäft" onKeyDown={this.onKeyDown} /> */}
 								<InputGroup.Append>
