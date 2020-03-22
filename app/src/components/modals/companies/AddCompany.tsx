@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Button, Form, Alert, Row, Col } from 'react-bootstrap';
+import AutoCompleteInput from '../../util/AutoCompleteInput/AutoCompleteInput';
 
 interface Props {}
 interface State {
@@ -85,7 +86,22 @@ class AddCompany extends Component<Props, State> {
 												Sektor<span className="text-danger">*</span>
 											</b>
 										</Form.Label>
-										<Form.Control type="text" max={255} />
+										{/* <Form.Control type="text" max={255} /> */}
+										<AutoCompleteInput
+											max={255}
+											suggestions={[
+												'Alligator',
+												'Bask',
+												'Crocodilian',
+												'Death Roll',
+												'Eggs',
+												'Jaws',
+												'Reptile',
+												'Solitary',
+												'Tail',
+												'Wetlands'
+											]}
+										/>
 									</Form.Group>
 								</Col>
 							</Row>
@@ -98,7 +114,7 @@ class AddCompany extends Component<Props, State> {
 												Postleitzahl<span className="text-danger">*</span>
 											</b>
 										</Form.Label>
-										<Form.Control type="text" max={255} />
+										<Form.Control type="number" min={10000} max={99999} />
 									</Form.Group>
 								</Col>
 								{/* City */}
@@ -114,7 +130,7 @@ class AddCompany extends Component<Props, State> {
 								</Col>
 								{/* Street */}
 								<Col>
-									<Form.Group controlId="name">
+									<Form.Group controlId="street">
 										<Form.Label>
 											<b>
 												Straße. Nr.<span className="text-danger">*</span>
@@ -127,7 +143,7 @@ class AddCompany extends Component<Props, State> {
 							<Row className="mt-2">
 								{/* Paypal address */}
 								<Col>
-									<Form.Group controlId="name">
+									<Form.Group controlId="paypalAddress">
 										<Form.Label>
 											<b>
 												PayPal Email-Adresse
