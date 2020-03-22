@@ -10,16 +10,31 @@ import { connect } from 'react-redux';
 import '../../styles/jumbotron.scss';
 import '../../styles/home.scss';
 import AddCompany from '../modals/companies/AddCompany';
+import { SectorsState } from '../../store/models/sectors/reducer';
 
 interface Props {
 	companies: CompaniesState;
+	sectors: SectorsState;
 }
 
 const mapStateToProps = (state: StoreState) => ({
-	companies: state.companies
+	companies: state.companies,
+	sectors: state.sectors
+
 });
 
 class Home extends Component<Props> {
+
+	onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key == 'Enter') {
+
+		}
+	}
+
+	loadCompanies = () => {
+		
+	}
+
 	render() {
 		const { companies } = this.props;
 
@@ -33,7 +48,7 @@ class Home extends Component<Props> {
 						<div className="mt-5">
 							{/* <Form.Group controlId="123"> */}
 							<InputGroup>
-								<Form.Control type="text" placeholder="lorem ipsum" />
+								<Form.Control type="text" placeholder="z.B. Lebensmittelgeschäft" onKeyDown={this.onKeyDown} />
 								<InputGroup.Append>
 									<InputGroup.Text
 										style={{ backgroundColor: '#fff', borderLeft: '0px' }}
