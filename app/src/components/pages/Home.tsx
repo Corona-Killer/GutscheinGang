@@ -26,14 +26,14 @@ class Home extends Component<Props> {
 		return (
 			<React.Fragment>
 				<Jumbotron className="jumbotron-background mb-0">
-					<Container className="mt-5">
+					<Container className="m-auto d-block">
 						<h1 className="text-white text-center">
 							Suche nach einem Unternehmen in Deiner Stadt!
 						</h1>
 						<div className="mt-5">
 							{/* <Form.Group controlId="123"> */}
-							<InputGroup>
-								<Form.Control type="text" placeholder="lorem ipsum" />
+							<InputGroup style={{ height: '40px'}}>
+								<Form.Control type="text" style={{ height: '40px', fontSize: '1.2rem'}} placeholder="lorem ipsum" />
 								<InputGroup.Append>
 									<InputGroup.Text
 										style={{ backgroundColor: '#fff', borderLeft: '0px' }}
