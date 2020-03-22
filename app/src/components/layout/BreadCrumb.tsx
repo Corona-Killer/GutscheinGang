@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { Container, Breadcrumb } from 'react-bootstrap';
+import { Container, Breadcrumb, BreadcrumbItem } from 'react-bootstrap';
 import * as Icons from 'react-feather';
 import { history } from '../../history';
 
@@ -60,6 +60,10 @@ class BreadCrumb extends Component {
 									FAQ
 								</Breadcrumb.Item>
 							)}
+						/>
+						<Route
+							path="/legal/imprint"
+							component={() => <BreadcrumbItem>Impressum</BreadcrumbItem>}
 						/>
 					</BrowserRouter>
 				</Container>
