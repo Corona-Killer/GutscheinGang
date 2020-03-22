@@ -10,7 +10,8 @@ Frontend:
 - NPM
 
 ## Run the backend locally
-1. Run it directly by executing ```gradle bootRun``` or build a jar-file by running ```gradle build```
+1. Insert the database credentials into ```/src/main/resources/application.properties```. Take the ```application_sample.properties``` as sample.
+2. Run it directly by executing ```gradle bootRun``` or build a jar-file by running ```gradle build```
 
 ## Run the frontend locally
 1. Run ```npm install``` to install all prerequisites
