@@ -1,5 +1,5 @@
 import React from 'react';
-import BreadCrumb from '../../layout/BreadCrumb';
+import BreadCrumb from '../../layout/breadcrumb/BreadCrumb';
 import { Container } from 'react-bootstrap';
 
 const Imprint: React.FC = () => {
