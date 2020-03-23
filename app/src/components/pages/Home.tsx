@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Jumbotron, Container, Form, InputGroup } from 'react-bootstrap';
-import BreadCrumb from '../layout/BreadCrumb';
+import BreadCrumb from '../layout/breadcrumb/BreadCrumb';
 import * as Icons from 'react-feather';
 import CompanyItem from '../common/CompanyItem';
 import { StoreState } from '../../store';

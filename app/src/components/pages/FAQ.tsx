@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
-import BreadCrumb from '../layout/BreadCrumb';
+import BreadCrumb from '../layout/breadcrumb/BreadCrumb';
 
 class FAQ extends Component {
 	render() {
