@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import { history } from './history';
 import NavBar from './components/layout/NavBar';
 import AboutUs from './components/pages/AboutUs';
@@ -33,6 +33,8 @@ class App extends Component {
 							<Route exact path="/" component={Home} />
 							<Route exact path="/about-us" component={AboutUs} />
 							<Route exact path="/legal/imprint" component={Imprint} />
+
+							<Redirect to="/" />
 						</Switch>
 					</main>
 					<Footer />
