@@ -21,7 +21,7 @@ jobs:
       run: chmod +x gradlew
       working-directory: ./backend
     - name: Build with Gradle
-      run: gradlew build
+      run: ./gradlew build
       working-directory: ./backend
 
     # Build Image and push to Azure
