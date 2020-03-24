@@ -1,0 +1,27 @@
+name: Build Backend
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # checkout the repo
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      working-directory: ./backend
+    - name: Build with Gradle
+      run: ./gradlew build
+      working-directory: ./backend
+      env:
+        POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+
+

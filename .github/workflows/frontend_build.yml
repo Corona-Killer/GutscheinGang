@@ -1,0 +1,13 @@
+name: Build Frontend
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # checkout the repo
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - run: |
+        docker build app/. -t ggconreg.azurecr.io/frontend:${{ github.sha }}

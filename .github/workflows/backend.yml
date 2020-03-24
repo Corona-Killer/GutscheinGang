@@ -1,4 +1,4 @@
-name: Java CI with Gradle
+name: Build and Deploy Backend to Azure
 
 on:
   push:
@@ -6,8 +6,7 @@ on:
 
 
 jobs:
-  build:
-
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,17 +32,17 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    
+
     - uses: azure/docker-login@v1
       with:
         login-server: ggconreg.azurecr.io
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-    
+
     - run: |
         docker build backend/. -t ggconreg.azurecr.io/backend:${{ github.sha }}
-        docker push ggconreg.azurecr.io/backend:${{ github.sha }} 
-      
+        docker push ggconreg.azurecr.io/backend:${{ github.sha }}
+
     - uses: azure/webapps-deploy@v2
       with:
         app-name: 'ggbackend'
