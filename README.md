@@ -1,5 +1,6 @@
 # GutscheinGang
-![.github/workflows/frontend.yml](https://github.com/Corona-Killer/GutscheinGang/workflows/.github/workflows/frontend.yml/badge.svg?branch=master)
+![Frontend Build](https://github.com/Corona-Killer/GutscheinGang/workflows/Build%20and%20Deploy%20Frontend%20to%20Azure/badge.svg)
+![Backend Build](https://github.com/Corona-Killer/GutscheinGang/workflows/Build%20and%20Deploy%20Backend%20to%20Azure/badge.svg)
 
 A project, where vouchers can be bought to support local businesses that have big losses during the Corona crisis. Those vouchers are supposed to be redeemed after the crisis and therefore flatten the impact curve of the crisis on those businesses.
 
@@ -7,7 +8,7 @@ The project originates from the <a href="https://wirvsvirushackathon.org/" targe
 
 ## Prerequisites
 Backend:
-- JDK 11 
+- JDK 11
 
 Frontend:
 - NodeJS
