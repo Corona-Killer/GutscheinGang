@@ -1,4 +1,3 @@
-# GutscheinGang
 ![.github/workflows/frontend.yml](https://github.com/Corona-Killer/GutscheinGang/workflows/.github/workflows/frontend.yml/badge.svg?branch=master)
 
 A project, where vouchers can be bought to support local businesses that have big losses during the Corona crisis. Those vouchers are supposed to be redeemed after the crisis and therefore flatten the impact curve of the crisis on those businesses.
