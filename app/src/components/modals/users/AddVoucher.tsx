@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Modal, Button, Form, Row, Col, InputGroup } from 'react-bootstrap';
+import { PayPalButton } from 'react-paypal-button-v2';
+import { toast } from 'react-toastify';
+// redux
 import { StoreState } from '../../../store';
 import { SectorsState } from '../../../store/models/sectors/reducer';
 import { connect } from 'react-redux';
-import { PayPalButton } from 'react-paypal-button-v2';
-import { toast } from 'react-toastify';
 
 const mapStateToProps = (state: StoreState) => ({
 	sectors: state.sectors
@@ -107,7 +108,7 @@ class AddVoucher extends Component<Props, State> {
 
 								{/* Email */}
 								<Col xs={12}>
-									<Form.Group controlId="sector">
+									<Form.Group controlId="email">
 										<Form.Label>
 											<b>
 												Email<span className="text-danger">*</span>
@@ -123,7 +124,7 @@ class AddVoucher extends Component<Props, State> {
 
 								{/* Amount */}
 								<Col xs={12} className="mt-36">
-									<Form.Group controlId="sector">
+									<Form.Group controlId="amount">
 										<Form.Label>
 											<b>
 												Betrag<span className="text-danger">*</span>
@@ -147,7 +148,7 @@ class AddVoucher extends Component<Props, State> {
 
 							<Row className="justify-content-md-center">
 								<Col xs={8} className="mt-36">
-									<PayPalButton.PayPalButton
+									<PayPalButton
 										amount={amountInEuro}
 										// shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
 										onSuccess={this.onPaypalSuccess}
