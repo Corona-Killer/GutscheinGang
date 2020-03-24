@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("sector")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Tag(name="Sectors")
-public class SectorController {
+public class SectorController extends GenericController {
 
     private SectorRepository sectorRepository;
 
