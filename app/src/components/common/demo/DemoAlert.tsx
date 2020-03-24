@@ -3,10 +3,12 @@ import { Alert } from 'react-bootstrap';
 
 const DemoAlert: React.FC = () => {
 	// Only render modal if not in development
-	const { NODE_ENV: env } = process.env;
-	if (env === 'development') {
-		return null;
-	}
+	//FIX NODE_ENV is not set properly by the server
+	// const { NODE_ENV: env } = process.env;
+	// console.log(env);
+	// if (env === 'development') {
+	// 	return null;
+	// }
 
 	return (
 		<Alert variant="danger">
