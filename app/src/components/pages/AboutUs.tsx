@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import BreadCrumb from '../layout/breadcrumb/BreadCrumb';
-import '../../styles/about.scss';
 import aboutUs from '../../resources/images/about-us.png';
 
+import '../../styles/about.scss';
 import { team } from '../../data/team';
 
 interface TeamMemberProps {
@@ -13,7 +13,9 @@ interface TeamMemberProps {
 }
 const TeamMember: React.FC<TeamMemberProps> = ({ name, url, textAfter }: TeamMemberProps) => (
 	<div>
-		👨‍💻{' '}
+		<span role="img" aria-label="icon">
+			👨‍💻
+		</span>
 		<a
 			href={`https://github.com/${url}`}
 			className="about--people-link"
@@ -32,10 +34,14 @@ class AboutUs extends Component {
 			<React.Fragment>
 				<BreadCrumb />
 				<Container className="mt-3 mb-3">
-					<img src={aboutUs} className="about--image" />
+					<img src={aboutUs} className="about--image" alt="About us" />
 					<p className="about--description-text">
 						Wir sind ein Team aus 8 Entwickler*innen, das sich über den
-						<a target="_blank" href="https://wirvsvirushackathon.org/">
+						<a
+							href="https://wirvsvirushackathon.org/"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
 							<b> #WirVsVirus</b>-Hackathon{' '}
 						</a>
 						der Bundesregierung kennengelernt haben. Uns vereint das gemeinsame Ziel,
