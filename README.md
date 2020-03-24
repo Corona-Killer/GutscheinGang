@@ -2,7 +2,7 @@
 ![.github/workflows/azure.yml](https://github.com/Corona-Killer/GutscheinGang/workflows/.github/workflows/azure.yml/badge.svg?branch=master)
 ## Prerequisites
 Backend:
-- Java 11 
+- JDK 11 
 
 Frontend:
 - NodeJS
