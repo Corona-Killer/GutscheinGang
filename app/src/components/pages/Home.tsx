@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Jumbotron, Container, Form, InputGroup } from 'react-bootstrap';
+import { Jumbotron, Container, Form, InputGroup, Alert } from 'react-bootstrap';
 import BreadCrumb from '../layout/breadcrumb/BreadCrumb';
 import * as Icons from 'react-feather';
 import CompanyItem from '../common/CompanyItem';
@@ -13,6 +13,8 @@ import AddCompany from '../modals/companies/AddCompany';
 import { SectorsState } from '../../store/models/sectors/reducer';
 import AutoCompleteInput from '../util/AutoCompleteInput/AutoCompleteInput';
 import { Keys } from '../util/AutoCompleteInput/keys';
+import DemoModal from '../common/demo/DemoModal';
+import DemoAlert from '../common/demo/DemoAlert';
 
 const mapStateToProps = (state: StoreState) => ({
 	companies: state.companies,
@@ -71,6 +73,9 @@ class Home extends Component<Props, State> {
 				</Jumbotron>
 				<BreadCrumb />
 				<Container className="mt-3 mb-3">
+					{/* TODO Remove later */}
+					<DemoAlert />
+
 					<span className="home--description-heading">
 						{' '}
 						<span className="home--description-heading-hashtag">#</span>
