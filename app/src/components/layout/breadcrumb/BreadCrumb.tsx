@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Container, Breadcrumb } from 'react-bootstrap';
 import * as Icons from 'react-feather';
 import BreadcrumbItem from './BreadcrumbItem';
-import { history } from '../../../history';
 
 import '../../../styles/breadcrumb.scss';
 

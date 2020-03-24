@@ -1,4 +1,4 @@
-import React, { Component, RefObject, createRef } from 'react';
+import React, { Component } from 'react';
 import { Form } from 'react-bootstrap';
 
 import './auto-complete-input.scss';
