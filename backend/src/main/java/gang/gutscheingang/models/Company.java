@@ -30,8 +30,8 @@ public class Company {
     private String description;
 
     @ManyToOne
-    @NotNull
-    @Valid
+    //@NotNull
+    //@Valid
     private Sector sector;
 
     private URL logoUrl;
@@ -73,7 +73,7 @@ public class Company {
     private String street;
 
     @NotNull
-    @Min(10000)
+    @Min(value = 10000, message = "keine gültige Postleitzahl")
     private int postalCode;
 
     @NotNull
