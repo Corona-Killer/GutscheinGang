@@ -11,7 +11,7 @@ const DemoAlert: React.FC = () => {
 	// }
 
 	return (
-		<Alert variant="danger">
+		<Alert variant="secondary">
 			<Alert.Heading>Demo</Alert.Heading>
 			CoronaCoupon befindet sich noch im Aufbau. Die Inhalte sind nur zu Demonstrations- und
 			Testzwecken. Bitte nicht versuchen, Gutscheine zu kaufen / Geschäfte zu registrieren.
