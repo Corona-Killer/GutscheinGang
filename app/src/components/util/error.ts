@@ -59,5 +59,5 @@ export function mapErrorResponseToErrorObject(errorResponse: any): ReduxError {
     };
   });
 
-  return errorObject;
+  return errorResponse;
 }
