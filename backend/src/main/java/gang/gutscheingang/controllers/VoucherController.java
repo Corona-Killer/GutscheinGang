@@ -14,7 +14,7 @@ import java.util.UUID;
 @RequestMapping("voucher")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Tag(name="Vouchers")
-public class VoucherController {
+public class VoucherController extends GenericController {
 
     private VoucherRepository voucherRepository;
 

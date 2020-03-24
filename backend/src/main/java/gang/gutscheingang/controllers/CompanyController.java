@@ -25,23 +25,10 @@ import java.util.UUID;
 @RequestMapping("company")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Tag(name = "Companies")
-public class CompanyController {
+public class CompanyController extends GenericController {
 
     private CompanyRepository companyRepository;
     private SectorRepository sectorRepository;
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
-    }
 
     @Autowired
     public CompanyController(CompanyRepository companyRepository, SectorRepository sectorRepository) {
@@ -57,23 +44,18 @@ public class CompanyController {
      */
     @PostMapping(produces = "application/json")
     public Company createCompany(@RequestBody @Valid Company company) {
-
         Sector sector;
+        sector = sectorRepository.findByNameIgnoreCase(company.getSector().getName());
 
+        // if not found add
+        if (sector == null) {
+            sector = sectorRepository.save(company.getSector());
+        }
 
-            sector = sectorRepository.findByNameIgnoreCase(company.getSector().getName());
+        company.setSector(sector);
+        company.setTags();
 
-            // if not found add
-            if (sector == null) {
-
-                sector = sectorRepository.save(company.getSector());
-
-            }
-
-            company.setSector(sector);
-            company.setTags();
-            return companyRepository.save(company);
-
+        return companyRepository.save(company);
     }
 
     @GetMapping(produces = "application/json")
@@ -82,6 +64,7 @@ public class CompanyController {
             @RequestParam(defaultValue = "10") int pagesize,
             @RequestParam(required = false) String query
     ) {
+
         if (query == null || query.equals("")) {
             return companyRepository.findAll(PageRequest.of(pagenumber, pagesize));
         } else {
@@ -101,12 +84,12 @@ public class CompanyController {
 
     @PutMapping(value = "/{uuid}", produces = "application/json")
     public Company updateCompany(@PathVariable UUID uuid, @RequestBody @Valid Company company) {
-        return companyRepository.findById(uuid)
-                .map(
-                        foundCompany -> {
-                            foundCompany.updateWith(company);
-                            return companyRepository.save(foundCompany);
-                        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        return companyRepository
+                .findById(uuid)
+                .map(foundCompany -> {
+                    foundCompany.updateWith(company);
+                    return companyRepository.save(foundCompany);
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping(value = "/{uuid}", produces = "application/json")
@@ -117,6 +100,4 @@ public class CompanyController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
-
-
 }

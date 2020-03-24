@@ -22,7 +22,7 @@ import java.util.UUID;
 @RequestMapping("user")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Tag(name="Users")
-public class UserController {
+public class UserController extends GenericController {
 
     private UserRepository userRepository;
     private CompanyRepository companyRepository;
