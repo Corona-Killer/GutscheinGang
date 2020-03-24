@@ -1,4 +1,4 @@
-name: Build and Deploy Backend to Azure
+name: Backend
 
 on:
   push:
