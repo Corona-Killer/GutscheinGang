@@ -3,7 +3,6 @@
 ## Prerequisites
 Backend:
 - Java 11 
-- gradle
 
 Frontend:
 - NodeJS
