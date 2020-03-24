@@ -3,9 +3,19 @@
     "schemas": {
       "Company": {
         "type": "object",
+        "required": [
+          "city",
+          "description",
+          "name",
+          "paypalAddress",
+          "postalCode",
+          "street"
+        ],
         "properties": {
           "city": {
-            "type": "string"
+            "minLength": 1,
+            "type": "string",
+            "maxLength": 2147483647
           },
           "twitterUrl": {
             "format": "url",
@@ -13,10 +23,13 @@
           },
           "postalCode": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "minimum": 10000
           },
           "description": {
-            "type": "string"
+            "minLength": 1,
+            "type": "string",
+            "maxLength": 2147483647
           },
           "uuid": {
             "format": "uuid",
@@ -44,10 +57,14 @@
             "type": "string"
           },
           "street": {
-            "type": "string"
+            "minLength": 1,
+            "type": "string",
+            "maxLength": 2147483647
           },
           "name": {
-            "type": "string"
+            "minLength": 1,
+            "type": "string",
+            "maxLength": 2147483647
           },
           "paypalAddress": {
             "type": "string"
@@ -74,9 +91,17 @@
       },
       "Sector": {
         "type": "object",
+        "required": [
+          "name"
+        ],
         "properties": {
+          "valid": {
+            "type": "boolean"
+          },
           "name": {
-            "type": "string"
+            "minLength": 1,
+            "type": "string",
+            "maxLength": 2147483647
           },
           "uuid": {
             "format": "uuid",
@@ -86,12 +111,21 @@
       },
       "SystemUser": {
         "type": "object",
+        "required": [
+          "email",
+          "firstName",
+          "lastName"
+        ],
         "properties": {
           "firstName": {
-            "type": "string"
+            "minLength": 1,
+            "type": "string",
+            "maxLength": 2147483647
           },
           "lastName": {
-            "type": "string"
+            "minLength": 1,
+            "type": "string",
+            "maxLength": 2147483647
           },
           "voucherList": {
             "type": "array",
@@ -110,6 +144,11 @@
       },
       "VoucherBuyTransaction": {
         "type": "object",
+        "required": [
+          "companyUuid",
+          "userUuid",
+          "valueInEurCt"
+        ],
         "properties": {
           "userUuid": {
             "format": "uuid",
@@ -127,6 +166,10 @@
       },
       "Voucher": {
         "type": "object",
+        "required": [
+          "company",
+          "defaultValueInEurCt"
+        ],
         "properties": {
           "voucherId": {
             "type": "string"
@@ -206,6 +249,36 @@
             }
           }
         },
+        "parameters": [
+          {
+            "schema": {
+              "default": 0,
+              "format": "int32",
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "pagenumber",
+            "required": false
+          },
+          {
+            "schema": {
+              "default": 10,
+              "format": "int32",
+              "type": "integer"
+            },
+            "in": "query",
+            "name": "pagesize",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "query",
+            "required": false
+          }
+        ],
         "tags": [
           "Companies"
         ]
@@ -392,7 +465,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Sector"
+                  }
                 }
               }
             }
