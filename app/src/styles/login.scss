@@ -1,0 +1,22 @@
+html,
+body {
+	background-color: #e9ecef;
+}
+
+.login--bg {
+	height: calc(100vh - (56px + 40px));
+	display: flex;
+	align-items: center;
+	text-align: center;
+
+	img {
+		max-width: 100%;
+		margin-bottom: 40px;
+	}
+
+	.login--form {
+		margin: auto;
+		width: 100%;
+		max-width: 400px;
+	}
+}
