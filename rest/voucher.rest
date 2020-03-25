@@ -1,0 +1,45 @@
+@host=https://ggbackend.azurewebsites.net
+
+##################################################
+
+### Create voucher
+# Add voucher to user
+
+@userId=d9b80dde-12a8-46ab-b797-86f54d8db1f9
+@companyId=d0df2423-fe48-4ba3-90ce-7e1a373a74e0
+
+POST {{host}}/user/{{userId}}/voucher
+Content-Type: application/json
+
+{
+  "userUuid": "d9b80dde-12a8-46ab-b797-86f54d8db1f9",
+  "companyUuid": "d0df2423-fe48-4ba3-90ce-7e1a373a74e0",
+  "valueInEurCt": 100
+}
+
+##################################################
+
+### Pay with voucher
+
+@voucherId=4bb59ec3-424d-4349-9537-75e1f3379b2f
+
+PUT {{host}}/voucher/{{voucherId}}/current_amount
+Content-Type: application/json
+
+30
+
+##################################################
+
+### Get voucher
+
+@voucherId=4bb59ec3-424d-4349-9537-75e1f3379b2f
+
+GET {{host}}/voucher/{{voucherId}}
+
+##################################################
+
+### Delete voucher
+
+@voucherId=4bb59ec3-424d-4349-9537-75e1f3379b2f
+
+DELETE {{host}}/voucher/{{voucherId}}

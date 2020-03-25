@@ -1,0 +1,51 @@
+@host=https://ggbackend.azurewebsites.net
+
+##################################################
+
+### Get companies
+
+GET {{host}}/company
+
+##################################################
+
+### Get company by ID
+
+@companyId=d0df2423-fe48-4ba3-90ce-7e1a373a74e0
+
+GET {{host}}/company/{{companyId}}
+
+##################################################
+
+### Query companies
+
+@query=61440
+
+GET {{host}}/company?query={{query}}
+
+##################################################
+
+### Create company
+
+POST /{{host}}/company
+Content-Type: application/json
+
+{
+  "name": "Test",
+    "description": "Ich verkaufe seit Jahren schöne Blumen.",
+    "sector": {
+    	"name": null
+    },
+    "logoUrl": null,
+    "wallpaperUrl": null,
+    "homepage": "http://www.sabines-bluemchen.de/",
+    "facebookUrl": "http://www.facebook.com/sabines_bluemchen",
+    "twitterUrl": null,
+    "instagramUrl": null,
+    "imageList": [],
+    "tags": [],
+    "needHelpBecause": "Wenn ich in den nächsten paar Wochen kein Geld kriege, dann gehen die Blumen ein.",
+    "paypalAddress": "123@example.org",
+    "street": "Breitlacherstraße 64",
+    "postalCode": 12345,
+    "city": "Frankfurt am Main"
+}

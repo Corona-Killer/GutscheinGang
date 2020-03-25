@@ -1,0 +1,23 @@
+@host=https://ggbackend.azurewebsites.net
+
+##################################################
+
+### Get user
+
+@userId=d9b80dde-12a8-46ab-b797-86f54d8db1f9
+GET {{host}}/user/{{userId}}
+
+##################################################
+
+### Create user
+
+POST {{host}}/user
+Content-Type: application/json
+
+{
+  "firstName": "Tobias",
+  "lastName": "Wälde",
+  "email": "tobias.waelde@gmail.com"
+}
+
+##################################################
