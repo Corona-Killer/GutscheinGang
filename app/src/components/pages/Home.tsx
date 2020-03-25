@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { Jumbotron, Container, Form, InputGroup } from 'react-bootstrap';
+import { Jumbotron, Container, InputGroup } from 'react-bootstrap';
 import BreadCrumb from '../layout/breadcrumb/BreadCrumb';
-import * as Icons from 'react-feather';
 import CompanyItem from '../common/CompanyItem';
 import { StoreState } from '../../store';
 import { CompaniesState } from '../../store/models/companies/reducer';
+import { Keys } from '../util/AutoCompleteInput/keys';
+import AutoCompleteInput from '../util/AutoCompleteInput/AutoCompleteInput';
+import AddCompany from '../modals/companies/AddCompany';
+import DemoAlert from '../common/demo/DemoAlert';
 import { connect } from 'react-redux';
+import { SectorsState } from '../../store/models/sectors/reducer';
 
 import '../../styles/jumbotron.scss';
 import '../../styles/home.scss';
-import AddCompany from '../modals/companies/AddCompany';
-import { SectorsState } from '../../store/models/sectors/reducer';
-import AutoCompleteInput from '../util/AutoCompleteInput/AutoCompleteInput';
-import { Keys } from '../util/AutoCompleteInput/keys';
 
 const mapStateToProps = (state: StoreState) => ({
 	companies: state.companies,
@@ -32,6 +32,11 @@ const initState: State = {
 };
 
 class Home extends Component<Props, State> {
+	constructor(props: Props) {
+		super(props);
+		this.state = initState;
+	}
+
 	onChangeSearch = (e: React.FormEvent<HTMLInputElement>) => {
 		this.setState({ searchInput: e.currentTarget.value });
 	};
@@ -71,6 +76,9 @@ class Home extends Component<Props, State> {
 				</Jumbotron>
 				<BreadCrumb />
 				<Container className="mt-3 mb-3">
+					{/* TODO Remove later */}
+					<DemoAlert />
+
 					<span className="home--description-heading">
 						{' '}
 						<span className="home--description-heading-hashtag">#</span>

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Sector } from '../../store/models/sectors';
-import { Card, Badge, Button } from 'react-bootstrap';
+import { Card, Badge } from 'react-bootstrap';
 import { Company } from '../../store/models/companies';
 import logoEmpty from '../../resources/images/empty-company-logo-2.jpg';
-import { url } from 'inspector';
 import AddVoucher from '../modals/users/AddVoucher';
 
 interface Props {

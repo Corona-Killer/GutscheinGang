@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
 import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
 import NavItem from './navbar/NavItem';
-import NavDropdownItem from './navbar/NavDropdownItem';
 
 interface Props extends RouteComponentProps {
 	//
@@ -56,9 +55,7 @@ class NavBar extends Component<Props, State> {
 									</span>
 								</NavItem>
 								<NavItem to="/about-us">
-									<span>
-										#AboutUs
-									</span>
+									<span>#AboutUs</span>
 								</NavItem>
 							</Nav>
 						</Navbar.Collapse>

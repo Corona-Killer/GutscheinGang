@@ -1,7 +1,7 @@
 import { AnyAction, Dispatch } from 'redux';
 import { Sector } from './index';
 import * as reducer from './reducer';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import api from '../../api';
 
 /**
