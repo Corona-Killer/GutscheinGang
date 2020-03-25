@@ -7,6 +7,7 @@ import Home from './components/pages/Home';
 import Footer from './components/layout/Footer';
 import Imprint from './components/pages/legal/imprint';
 import Login from './components/pages/auth/Login';
+import Signup from './components/pages/auth/Signup';
 
 class App extends Component {
 	// state = {
@@ -32,6 +33,7 @@ class App extends Component {
 					<main>
 						<Switch>
 							<Route exact path="/auth/login" component={Login} />
+							<Route exact path="/auth/signup" component={Signup} />
 
 							<Route exact path="/" component={Home} />
 							<Route exact path="/about-us" component={AboutUs} />

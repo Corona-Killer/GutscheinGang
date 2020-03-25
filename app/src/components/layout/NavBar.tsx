@@ -42,7 +42,7 @@ class NavBar extends Component<Props, State> {
 					<Container>
 						<Navbar.Brand as={Link} to="/" className="p-0 m-0">
 							<span className="custom-font uppercase" style={{ fontSize: '130%' }}>
-								Unterstütze deine lokale Szene!
+								Corona Coupon
 							</span>
 						</Navbar.Brand>
 

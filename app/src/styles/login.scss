@@ -4,6 +4,7 @@ body {
 }
 
 .login--bg {
+	width: 100%;
 	height: calc(100vh - (56px + 40px));
 	display: flex;
 	align-items: center;
@@ -14,9 +15,18 @@ body {
 		margin-bottom: 40px;
 	}
 
-	.login--form {
+	.login--form,
+	.signup--form {
 		margin: auto;
 		width: 100%;
 		max-width: 400px;
+
+		.row {
+			margin: 15px 0;
+		}
+	}
+
+	.signup--form {
+		max-width: 600px;
 	}
 }
