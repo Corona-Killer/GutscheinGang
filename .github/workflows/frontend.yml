@@ -1,4 +1,4 @@
-name: Build and Deploy Frontend to Azure
+name: Frontend
 on:
   push:
     branches:
