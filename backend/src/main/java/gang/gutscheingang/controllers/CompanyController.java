@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
+
 import java.util.List;
 
 import java.util.UUID;
@@ -30,6 +31,7 @@ public class CompanyController extends GenericController {
     private final CompanyRepository companyRepository;
     private final SectorRepository sectorRepository;
     private final UserRepository userRepository;
+
 
     @Autowired
     public CompanyController(CompanyRepository companyRepository, SectorRepository sectorRepository, UserRepository userRepository) {
