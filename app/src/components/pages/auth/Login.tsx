@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, RefObject, createRef } from 'react';
 import { Form, Button, InputGroup, Row, Col } from 'react-bootstrap';
 import * as Icons from 'react-feather';
 
@@ -7,7 +7,20 @@ import logo from '../../../resources/images/coupons-from-local-businesses.png';
 import '../../../styles/login.scss';
 import { history } from '../../../history';
 
-class Login extends Component {
+interface Props {}
+
+class Login extends Component<Props> {
+	emailRef: RefObject<any>;
+	passwordRef: RefObject<any>;
+
+	constructor(props: Props) {
+		super(props);
+
+		// Bind refs
+		this.emailRef = createRef();
+		this.passwordRef = createRef();
+	}
+
 	render() {
 		return (
 			<React.Fragment>
@@ -29,6 +42,7 @@ class Login extends Component {
 												type="email"
 												placeholder="Email"
 												autoComplete="email"
+												ref={this.emailRef}
 											/>
 										</InputGroup>
 										<Form.Text className="text-danger text-left">
@@ -51,6 +65,7 @@ class Login extends Component {
 												type="password"
 												placeholder="Passwort"
 												autoComplete="password"
+												ref={this.passwordRef}
 											/>
 										</InputGroup>
 										<Form.Text className="text-danger text-left">
