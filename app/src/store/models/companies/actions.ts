@@ -2,7 +2,7 @@ import { AnyAction, Dispatch } from 'redux';
 import { Company } from './index';
 import * as reducer from './reducer';
 import { AxiosResponse } from 'axios';
-import api from '../../api';
+import http from '../../../services/http';
 import { mapErrorToReduxError } from '../../../components/util/error';
 import { ReduxError } from '../../error';
 
@@ -10,7 +10,7 @@ export const getAllCompanies = () => async (dispatch: Dispatch<AnyAction>) => {
   dispatch(reducer.getSetLoading());
 
   try {
-    const { data }: AxiosResponse = await api.get('/company');
+    const { data }: AxiosResponse = await http.get('/company');
     const companies = data as Company[];
 
     return dispatch(reducer.companiesReceived(companies));
@@ -23,7 +23,7 @@ export const createCompany = (company: Company) => async (dispatch: Dispatch<Any
   dispatch(reducer.addSetLoading());
 
   try {
-    const { data }: AxiosResponse = await api.post('/company', company);
+    const { data }: AxiosResponse = await http.post('/company', company);
 
     return dispatch(reducer.companyCreated(data as Company));
   } catch (error) {

@@ -2,7 +2,7 @@ import { AnyAction, Dispatch } from 'redux';
 import { User } from './index';
 import * as reducer from './reducer';
 import { AxiosResponse } from 'axios';
-import api from '../../api';
+import http from '../../../services/http';
 import { Voucher } from '../vouchers';
 
 /**
