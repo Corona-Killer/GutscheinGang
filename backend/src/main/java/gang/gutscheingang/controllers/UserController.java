@@ -47,14 +47,11 @@ public class UserController extends GenericController {
         return userRepository.save(systemUser);
     }
 
-    @GetMapping(value = "/{uuid}", produces = "application/json")
-    public SystemUser getUserById(@PathVariable UUID uuid, Principal principal) {
+    @GetMapping(value = "/", produces = "application/json")
+    public SystemUser getCurrentUser(Principal principal) {
         SystemUser currentUser = userRepository.findByEmailIgnoreCase(principal.getName());
-        if (!currentUser.getUuid().equals(uuid)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        }
 
-        return userRepository.findByUuid(uuid);
+        return userRepository.findByUuid(currentUser.getUuid());
     }
 
     @PutMapping(value = "/{uuid}", produces = "application/json")
