@@ -42,6 +42,9 @@ public class SystemUser {
     @Size(min = 1)
     private String lastName;
 
+    @NotNull
+    @Size(min = 8)
+    @JsonIgnore
     private String password;
 
     public SystemUser() { }

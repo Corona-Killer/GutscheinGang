@@ -16,7 +16,8 @@ Frontend:
 
 ## Run the backend locally
 1. Set the database credentials as environment variables (POSTGRES_URL, POSTGRES_USER, POSTGRES_PASSWORD)
-2. Run it directly by executing ```gradlew bootRun``` or build a jar-file by running ```gradlew build```
+2. Set a random JWT secret as environment variable (JWT_SECRET)
+3. Run it directly by executing ```gradlew bootRun``` or build a jar-file by running ```gradlew build```
 
 ## Run the frontend locally
 1. Run ```npm install``` to install all prerequisites
