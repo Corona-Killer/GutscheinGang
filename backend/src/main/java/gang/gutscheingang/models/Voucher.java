@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.AssertFalse;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.util.UUID;
 
 /**
@@ -46,16 +45,13 @@ public class Voucher {
     @AssertFalse
     private boolean isUsed;
 
-    public Voucher() {}
+    public Voucher() {
+    }
 
     public Voucher(Company company, int defaultValueInEurCt) {
         this.company = company;
         this.defaultValueInEurCt = defaultValueInEurCt;
         this.valueInEurCt = defaultValueInEurCt;
-    }
-
-    public void setUsed(boolean usedSate) {
-        this.isUsed = usedSate;
     }
 
     public Company getCompany() {
@@ -82,15 +78,24 @@ public class Voucher {
         return isUsed;
     }
 
+    public void setUsed(boolean usedSate) {
+        this.isUsed = usedSate;
+    }
+
+    public boolean isPaid() { return isPaid; }
+
+    public void setPaid(boolean paid) { isPaid = paid; }
+
     /**
      * Use a voucher and subtract the used amount of money from the value.
+     *
      * @param valueToSubtract the value to subtract
      */
     public void subtractValueInEurCt(int valueToSubtract) {
-        int temp = this.valueInEurCt - valueToSubtract;
-        if(temp < 0) {
+        if (this.valueInEurCt - valueToSubtract < 0 || valueToSubtract < 0) {
             throw new IllegalArgumentException();
         }
-        this.valueInEurCt = temp;
+
+        this.valueInEurCt = this.valueInEurCt - valueToSubtract;
     }
 }
