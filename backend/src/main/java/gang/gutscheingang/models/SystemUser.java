@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.awt.image.PackedColorModel;
 import java.util.List;
 import java.util.UUID;
 
