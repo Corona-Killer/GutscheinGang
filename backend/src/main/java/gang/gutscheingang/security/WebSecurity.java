@@ -1,5 +1,6 @@
 package gang.gutscheingang.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -17,11 +19,11 @@ import static gang.gutscheingang.security.SecurityConstants.SIGN_UP_URL;
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
     private final UserDetailsServiceImpl userDetailsService;
-    private final Argon2PasswordEncoder argon2PasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public WebSecurity(UserDetailsServiceImpl userDetailsService, Argon2PasswordEncoder argon2PasswordEncoder) {
+    public WebSecurity(UserDetailsServiceImpl userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDetailsService = userDetailsService;
-        this.argon2PasswordEncoder = argon2PasswordEncoder;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(argon2PasswordEncoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Bean

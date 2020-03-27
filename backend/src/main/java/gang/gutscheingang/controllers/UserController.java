@@ -12,9 +12,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.security.core.Authentication;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -30,19 +30,19 @@ public class UserController extends GenericController {
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
     private final VoucherRepository voucherRepository;
-    private final Argon2PasswordEncoder argon2PasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserController(UserRepository userRepository, CompanyRepository companyRepository, VoucherRepository voucherRepository, Argon2PasswordEncoder argon2PasswordEncoder) {
+    public UserController(UserRepository userRepository, CompanyRepository companyRepository, VoucherRepository voucherRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.companyRepository = companyRepository;
         this.voucherRepository = voucherRepository;
-        this.argon2PasswordEncoder = argon2PasswordEncoder;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @PostMapping(produces = "application/json")
     public SystemUser createUser(@RequestBody @Valid SystemUser systemUser) {
-        systemUser.setPassword(argon2PasswordEncoder.encode(systemUser.getPassword()));
+        systemUser.setPassword(bCryptPasswordEncoder.encode(systemUser.getPassword()));
         systemUser.setUsername(systemUser.getUsername().toLowerCase());
         return userRepository.save(systemUser);
     }

@@ -1,10 +1,12 @@
 package gang.gutscheingang.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.awt.image.PackedColorModel;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +45,7 @@ public class SystemUser {
     private String lastName;
 
     @NotNull
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     public SystemUser() { }
@@ -65,6 +67,10 @@ public class SystemUser {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Voucher> getVoucherList() {
