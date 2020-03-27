@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface VoucherRepository extends CrudRepository<Voucher, UUID> {
 
-    public Voucher findByUuid(UUID uuid);
+    Voucher findByUuid(UUID uuid);
 
     @Override
     List<Voucher> findAll();

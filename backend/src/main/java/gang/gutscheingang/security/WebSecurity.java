@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -17,8 +16,8 @@ import static gang.gutscheingang.security.SecurityConstants.SIGN_UP_URL;
 
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
-    private UserDetailsServiceImpl userDetailsService;
-    private Argon2PasswordEncoder argon2PasswordEncoder;
+    private final UserDetailsServiceImpl userDetailsService;
+    private final Argon2PasswordEncoder argon2PasswordEncoder;
 
     public WebSecurity(UserDetailsServiceImpl userDetailsService, Argon2PasswordEncoder argon2PasswordEncoder) {
         this.userDetailsService = userDetailsService;

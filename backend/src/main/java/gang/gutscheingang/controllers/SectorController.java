@@ -17,7 +17,7 @@ import java.util.List;
 @Tag(name="Sectors")
 public class SectorController extends GenericController {
 
-    private SectorRepository sectorRepository;
+    private final SectorRepository sectorRepository;
 
     @Autowired
     public SectorController(SectorRepository sectorRepository) {

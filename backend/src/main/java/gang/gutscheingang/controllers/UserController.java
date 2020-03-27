@@ -11,10 +11,9 @@ import gang.gutscheingang.repositories.VoucherRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.security.core.Authentication;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -27,22 +26,22 @@ import java.util.UUID;
 @Tag(name = "Users")
 public class UserController extends GenericController {
 
-    private UserRepository userRepository;
-    private CompanyRepository companyRepository;
-    private VoucherRepository voucherRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;
+    private final CompanyRepository companyRepository;
+    private final VoucherRepository voucherRepository;
+    private final Argon2PasswordEncoder argon2PasswordEncoder;
 
     @Autowired
-    public UserController(UserRepository userRepository, CompanyRepository companyRepository, VoucherRepository voucherRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserController(UserRepository userRepository, CompanyRepository companyRepository, VoucherRepository voucherRepository, Argon2PasswordEncoder argon2PasswordEncoder) {
         this.userRepository = userRepository;
         this.companyRepository = companyRepository;
         this.voucherRepository = voucherRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.argon2PasswordEncoder = argon2PasswordEncoder;
     }
 
     @PostMapping(produces = "application/json")
     public SystemUser createUser(@RequestBody @Valid SystemUser systemUser) {
-        systemUser.setPassword(bCryptPasswordEncoder.encode(systemUser.getPassword()));
+        systemUser.setPassword(argon2PasswordEncoder.encode(systemUser.getPassword()));
         systemUser.setUsername(systemUser.getUsername().toLowerCase());
         return userRepository.save(systemUser);
     }

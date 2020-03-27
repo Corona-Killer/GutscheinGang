@@ -2,10 +2,8 @@ package gang.gutscheingang.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.jpa.spi.IdentifierGeneratorStrategyProvider;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.net.URL;
 import java.util.*;

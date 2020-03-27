@@ -25,9 +25,6 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-	implementation 'org.springframework.security:spring-security-oauth2-resource-server'
-	implementation 'org.springframework.security:spring-security-oauth2-jose'
-	implementation 'org.springframework.security:spring-security-config'
 	compile("com.auth0:java-jwt:3.4.0")
 }
 

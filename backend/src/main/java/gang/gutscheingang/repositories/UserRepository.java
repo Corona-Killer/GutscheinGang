@@ -8,9 +8,9 @@ import java.util.UUID;
 
 public interface UserRepository extends CrudRepository<SystemUser, UUID> {
 
-    public SystemUser findByEmailIgnoreCase(String email);
+    SystemUser findByEmailIgnoreCase(String email);
 
-    public SystemUser findByUuid(UUID uuid);
+    SystemUser findByUuid(UUID uuid);
 
     @Override
     List<SystemUser> findAll();

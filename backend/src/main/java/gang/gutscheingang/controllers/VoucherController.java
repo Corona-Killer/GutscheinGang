@@ -9,7 +9,6 @@ import gang.gutscheingang.repositories.VoucherRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -23,9 +22,9 @@ import java.util.UUID;
 @Tag(name = "Vouchers")
 public class VoucherController extends GenericController {
 
-    private VoucherRepository voucherRepository;
-    private UserRepository userRepository;
-    private CompanyRepository companyRepository;
+    private final VoucherRepository voucherRepository;
+    private final UserRepository userRepository;
+    private final CompanyRepository companyRepository;
 
     @Autowired
     public VoucherController(VoucherRepository voucherRepository, UserRepository userRepository, CompanyRepository companyRepository) {
@@ -90,7 +89,7 @@ public class VoucherController extends GenericController {
         company.deleteVoucher(voucher);
         companyRepository.save(company);
 
-        currentUser.deleteVoucher(voucher);
+        voucher = currentUser.deleteVoucher(voucher);
         userRepository.save(currentUser);
 
         voucherRepository.deleteById(uuid);

@@ -11,18 +11,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 import java.util.UUID;
 
 @RestController
@@ -31,9 +27,9 @@ import java.util.UUID;
 @Tag(name = "Companies")
 public class CompanyController extends GenericController {
 
-    private CompanyRepository companyRepository;
-    private SectorRepository sectorRepository;
-    private UserRepository userRepository;
+    private final CompanyRepository companyRepository;
+    private final SectorRepository sectorRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public CompanyController(CompanyRepository companyRepository, SectorRepository sectorRepository, UserRepository userRepository) {
