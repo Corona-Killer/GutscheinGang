@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import { Router, Switch, Route, Redirect, RouteComponentProps } from 'react-router-dom';
 import { history } from './history';
 import NavBar from './components/layout/NavBar';
 import AboutUs from './components/pages/AboutUs';
@@ -8,24 +8,66 @@ import Footer from './components/layout/Footer';
 import Imprint from './components/pages/legal/imprint';
 import Login from './components/pages/auth/Login';
 import Signup from './components/pages/auth/Signup';
+import { Authentication } from './interfaces/authentication';
+import userService from './services/user';
+import store from './store';
 
-class App extends Component {
-	// state = {
-	// 	loading: false
-	// };
+interface Props {}
+interface State {
+	authentication: Authentication;
+}
 
-	// componentDidMount() {
-	// 	setTimeout(() => {
-	// 		this.setState({ loading: false });
-	// 	}, 300);
-	// }
+const initState: State = {
+	authentication: {
+		authenticated: false,
+		loading: true,
+		user: null
+	}
+};
 
-	// componentDidMount() {
-	// 	const elem = window.document.getElementsByTagName('body')[0];
-	// 	elem.setAttribute('style', '');
-	// }
+class App extends Component<Props, State> {
+	removeAuthListener: any;
+
+	//SECTION React lifecycle
+
+	constructor(props: Props) {
+		super(props);
+		this.state = initState;
+	}
+
+	async UNSAFE_componentWillMount() {
+		this.removeAuthListener = await userService.onAuthStateChange(async (user) => {
+			if (user) {
+				this.setState({
+					authentication: {
+						authenticated: true,
+						loading: false,
+						user: user
+					}
+				});
+
+				// store.dispatch()
+			} else {
+				this.setState({
+					authentication: {
+						authenticated: false,
+						loading: false,
+						user: null
+					}
+				});
+			}
+		});
+	}
+
+	componentWillUnmount() {
+		this.removeAuthListener();
+	}
+
+	//!SECTION
 
 	render() {
+		const { authentication } = this.state;
+
 		return (
 			<React.Fragment>
 				<Router history={history}>
