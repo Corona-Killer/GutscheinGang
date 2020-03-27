@@ -21,10 +21,12 @@ public class SystemUser {
 
     @NotNull
     @Email
+    @Column(unique = true)
     private String email;
 
     @OneToMany
     @Null
+    @JsonIgnore
     private List<Voucher> voucherList;
 
     @OneToMany
@@ -40,11 +42,17 @@ public class SystemUser {
     @Size(min = 1)
     private String lastName;
 
-    private String jwtToken;
+    private String password;
+
+    public SystemUser() { }
+
+    public SystemUser(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
     public void updateWith(SystemUser systemUser) {
-        this.email = systemUser.email;
-        this.voucherList = systemUser.voucherList;
+        this.email = systemUser.email.toLowerCase();
         this.firstName = systemUser.firstName;
         this.lastName = systemUser.lastName;
     }
@@ -73,9 +81,30 @@ public class SystemUser {
         return lastName;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return email;
+    }
+
+    public void setUsername(String username) {
+        this.email = username.toLowerCase();
+    }
+
     public Voucher buyVoucher(Company company, int valueInEurCt) {
         Voucher voucher = new Voucher(company, valueInEurCt);
         voucherList.add(voucher);
+        return voucher;
+    }
+
+    public Voucher deleteVoucher(Voucher voucher) {
+        voucherList.remove(voucher);
         return voucher;
     }
 }

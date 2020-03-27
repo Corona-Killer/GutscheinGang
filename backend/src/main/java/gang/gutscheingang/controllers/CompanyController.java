@@ -2,13 +2,16 @@ package gang.gutscheingang.controllers;
 
 import gang.gutscheingang.models.Company;
 import gang.gutscheingang.models.Sector;
+import gang.gutscheingang.models.SystemUser;
 import gang.gutscheingang.models.Voucher;
 import gang.gutscheingang.repositories.CompanyRepository;
 import gang.gutscheingang.repositories.SectorRepository;
+import gang.gutscheingang.repositories.UserRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,11 +33,13 @@ public class CompanyController extends GenericController {
 
     private CompanyRepository companyRepository;
     private SectorRepository sectorRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public CompanyController(CompanyRepository companyRepository, SectorRepository sectorRepository) {
+    public CompanyController(CompanyRepository companyRepository, SectorRepository sectorRepository, UserRepository userRepository) {
         this.companyRepository = companyRepository;
         this.sectorRepository = sectorRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -43,7 +49,9 @@ public class CompanyController extends GenericController {
      * @return the created company
      */
     @PostMapping(produces = "application/json")
-    public Company createCompany(@RequestBody @Valid Company company) {
+    public Company createCompany(@RequestBody @Valid Company company, Principal principal) {
+        SystemUser currentUser = userRepository.findByEmailIgnoreCase(principal.getName());
+
         Sector sector;
         sector = sectorRepository.findByNameIgnoreCase(company.getSector().getName());
 
@@ -55,7 +63,16 @@ public class CompanyController extends GenericController {
         company.setSector(sector);
         company.setTags();
 
-        return companyRepository.save(company);
+        Company savedCompany = companyRepository.save(company);
+
+        try { currentUser.getCompanyList().add(company);
+            userRepository.save(currentUser);
+        } catch (Exception e) {
+            // rollback
+            companyRepository.deleteById(savedCompany.getUuid());
+        }
+
+        return savedCompany;
     }
 
     @GetMapping(produces = "application/json")
@@ -72,8 +89,15 @@ public class CompanyController extends GenericController {
         }
     }
 
-    @GetMapping(value = "/{uuid}/voucher", produces = "application/json")
-    public List<Voucher> getVouchersOfCompany(@PathVariable UUID uuid) {
+    @GetMapping(value = "/{uuid}/vouchers", produces = "application/json")
+    public List<Voucher> getVouchersOfCompany(@PathVariable UUID uuid, Principal principal) {
+        SystemUser currentUser = userRepository.findByEmailIgnoreCase(principal.getName());
+
+        // if company is not in companylist of current user
+        if (currentUser.getCompanyList().stream().map(Company::getUuid).noneMatch(uuid::equals)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
         return companyRepository.findById(uuid).map(Company::getVoucherList).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
@@ -83,7 +107,14 @@ public class CompanyController extends GenericController {
     }
 
     @PutMapping(value = "/{uuid}", produces = "application/json")
-    public Company updateCompany(@PathVariable UUID uuid, @RequestBody @Valid Company company) {
+    public Company updateCompany(@PathVariable UUID uuid, @RequestBody @Valid Company company, Principal principal) {
+        SystemUser currentUser = userRepository.findByEmailIgnoreCase(principal.getName());
+
+        // if company is not in companylist of current user
+        if (currentUser.getCompanyList().stream().map(Company::getUuid).noneMatch(uuid::equals)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
         return companyRepository
                 .findById(uuid)
                 .map(foundCompany -> {
@@ -93,7 +124,14 @@ public class CompanyController extends GenericController {
     }
 
     @DeleteMapping(value = "/{uuid}", produces = "application/json")
-    public void deleteCompany(@PathVariable UUID uuid) {
+    public void deleteCompany(@PathVariable UUID uuid, Principal principal) {
+        SystemUser currentUser = userRepository.findByEmailIgnoreCase(principal.getName());
+
+        // if company is not in companylist of current user
+        if (currentUser.getCompanyList().stream().map(Company::getUuid).noneMatch(uuid::equals)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+
         try {
             companyRepository.deleteById(uuid);
         } catch (Exception e) {

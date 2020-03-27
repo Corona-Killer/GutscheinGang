@@ -46,11 +46,6 @@ public class Company {
 
     private URL instagramUrl;
 
-    @OneToOne
-    @JsonIgnore
-    private SystemUser adminstrator;
-
-
     @ElementCollection
     private List<URL> imageList;
 
@@ -183,5 +178,13 @@ public class Company {
         tags.add(sector.toString());
         tags.add(String.valueOf(postalCode));
         tags.add(city);
+    }
+
+    public void addVoucher(Voucher voucher) {
+        voucherList.add(voucher);
+    }
+
+    public void deleteVoucher(Voucher voucher) {
+        voucherList.remove(voucher);
     }
 }
