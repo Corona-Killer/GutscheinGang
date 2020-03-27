@@ -29,7 +29,6 @@ public class Voucher {
     @NotNull
     private Company company;
 
-    @Null
     private int valueInEurCt;
 
     @NotNull
