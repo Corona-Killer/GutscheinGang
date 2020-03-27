@@ -43,7 +43,6 @@ public class SystemUser {
     private String lastName;
 
     @NotNull
-    @Size(min = 8)
     @JsonIgnore
     private String password;
 
