@@ -1,13 +1,28 @@
 import React, { Component, RefObject, createRef } from 'react';
-import { Form, Button, InputGroup, Row, Col } from 'react-bootstrap';
+import { Form, Button, InputGroup, Row, Col, Alert } from 'react-bootstrap';
 import * as Icons from 'react-feather';
 
 import logo from '../../../resources/images/coupons-from-local-businesses.png';
 
 import '../../../styles/login.scss';
 import { history } from '../../../history';
+import { StoreState } from '../../../store';
+import { LoginUserProps, loginUser } from '../../../store/models/auth/actions';
+import { connect } from 'react-redux';
+import { AuthState } from '../../../store/models/auth/reducer';
+import ButtonSpinner from '../../common/ButtonSpinner';
 
-interface Props {}
+interface Props {
+	auth: AuthState;
+	loginUser: (props: LoginUserProps) => void;
+}
+
+const mapStateToProps = (state: StoreState) => ({
+	auth: state.auth
+});
+const mapDispatchToProps = {
+	loginUser
+};
 
 class Login extends Component<Props> {
 	emailRef: RefObject<any>;
@@ -21,13 +36,32 @@ class Login extends Component<Props> {
 		this.passwordRef = createRef();
 	}
 
+	handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		const email = (this.emailRef.current as HTMLInputElement).value;
+		const password = (this.passwordRef.current as HTMLInputElement).value;
+
+		this.props.loginUser({ email, password });
+	};
+
 	render() {
+		const { loading, errors } = this.props.auth;
 		return (
 			<React.Fragment>
 				<div className="login--bg">
 					<div className="login--form">
 						<img src={logo} alt="Logo" />
-						<Form autoComplete="on" className="mt-3">
+						<Form autoComplete="on" className="mt-3" onSubmit={this.handleSubmit}>
+							{errors.login?.general && (
+								<Row>
+									<Col>
+										<Alert variant="danger">
+											{errors.login.general.message}
+										</Alert>
+									</Col>
+								</Row>
+							)}
 							<Row>
 								<Col>
 									{/* Email */}
@@ -43,11 +77,19 @@ class Login extends Component<Props> {
 												placeholder="Email"
 												autoComplete="email"
 												ref={this.emailRef}
+												readOnly={loading.login}
+												isInvalid={
+													errors.login?.email &&
+													errors.login.email.message !== ''
+												}
+												isValid={errors.login! && !errors.login?.email}
 											/>
 										</InputGroup>
-										<Form.Text className="text-danger text-left">
-											ERROR MESSAGE
-										</Form.Text>
+										{errors.login?.email && (
+											<Form.Text className="text-danger text-left">
+												{errors.login.email.message}
+											</Form.Text>
+										)}
 									</Form.Group>
 								</Col>
 							</Row>
@@ -66,11 +108,19 @@ class Login extends Component<Props> {
 												placeholder="Passwort"
 												autoComplete="password"
 												ref={this.passwordRef}
+												readOnly={loading.login}
+												isInvalid={
+													errors.login?.password &&
+													errors.login.password.message !== ''
+												}
+												isValid={errors.login! && !errors.login?.password}
 											/>
 										</InputGroup>
-										<Form.Text className="text-danger text-left">
-											ERROR MESSAGE
-										</Form.Text>
+										{errors.login?.password && (
+											<Form.Text className="text-danger text-left">
+												{errors.login.password.message}
+											</Form.Text>
+										)}
 									</Form.Group>
 								</Col>
 							</Row>
@@ -78,7 +128,13 @@ class Login extends Component<Props> {
 							{/* Buttons */}
 							<Row>
 								<Col>
-									<Button type="submit" block className="mt-3">
+									<Button
+										type="submit"
+										block
+										className="mt-3"
+										disabled={loading.login}
+									>
+										{loading.login && <ButtonSpinner />}
 										Anmelden
 									</Button>
 									<Button
@@ -99,4 +155,4 @@ class Login extends Component<Props> {
 	}
 }
 
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

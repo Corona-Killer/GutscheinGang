@@ -1,0 +1,27 @@
+@host=https://ggbackend.azurewebsites.net
+
+##################################################
+
+# Signup user
+
+POST {{host}}/user
+Content-Type: application/json
+
+{
+  "firstName": "Tobias",
+  "lastName": "Wälde",
+  "email": "tobias.waelde@gmail.com",
+  "password": "123456"
+}
+
+##################################################
+
+# Login user
+
+POST {{host}}/session
+Content-Type: application/json
+
+{
+  "email": "tobias.waelde@gmail.com",
+  "password": "123456"
+}
